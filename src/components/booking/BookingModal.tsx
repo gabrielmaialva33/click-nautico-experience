@@ -118,7 +118,6 @@ export function BookingModal() {
         <input
           id="date"
           type="date"
-          style={{ colorScheme: 'dark' }}
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
           style={{ colorScheme: 'dark', backgroundColor: '#000000', color: '#ffffff' }}
