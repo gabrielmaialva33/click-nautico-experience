@@ -12,6 +12,11 @@ import type { Message, ChatState } from './types'
 
 const generateId = () => Math.random().toString(36).substring(2, 9)
 
+// Remove <think>...</think> tags from NVIDIA responses (internal reasoning)
+const stripThinkingTags = (text: string): string => {
+  return text.replace(/<think>[\s\S]*?<\/think>\s*/gi, '').trim()
+}
+
 export function useGeminiChat() {
   const { locale } = useI18n()
   const [state, setState] = useState<ChatState>({
@@ -83,22 +88,24 @@ export function useGeminiChat() {
 
       for await (const chunk of streamNvidiaChat(messages, locale)) {
         fullResponse += chunk
+        const displayText = stripThinkingTags(fullResponse)
 
         setState((prev) => ({
           ...prev,
           messages: prev.messages.map((msg) =>
-            msg.id === assistantMessageId ? { ...msg, content: fullResponse } : msg
+            msg.id === assistantMessageId ? { ...msg, content: displayText } : msg
           ),
         }))
       }
 
-      // Update NVIDIA history
+      // Update NVIDIA history (without thinking tags)
+      const cleanResponse = stripThinkingTags(fullResponse)
       nvidiaHistoryRef.current.push(
         { role: 'user', content },
-        { role: 'assistant', content: fullResponse }
+        { role: 'assistant', content: cleanResponse }
       )
 
-      return fullResponse
+      return cleanResponse
     },
     [locale]
   )

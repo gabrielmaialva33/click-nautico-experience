@@ -40,6 +40,18 @@ export default {
         body: JSON.stringify(body),
       })
 
+      // Check for errors
+      if (!response.ok) {
+        const errorText = await response.text()
+        return new Response(
+          JSON.stringify({ error: 'NVIDIA API error', status: response.status, message: errorText }),
+          {
+            status: response.status,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
+
       // Handle streaming response
       if (body.stream) {
         return new Response(response.body, {
