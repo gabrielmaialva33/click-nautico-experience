@@ -1,7 +1,15 @@
-import { LOCATION, INSTAGRAM_LINK, WHATSAPP_LINK, STATS } from '@/constants'
+import { LOCATION, INSTAGRAM_LINK, WHATSAPP_LINK } from '@/constants'
+import { useI18n } from '@/lib/i18n'
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const { t } = useI18n()
+
+  const navLinks = [
+    { label: t.nav.home, href: '#home' },
+    { label: t.nav.kiteSchool, href: '#kite' },
+    { label: t.nav.tours, href: '#tours' },
+    { label: t.nav.contact, href: '#contact' },
+  ]
 
   return (
     <footer id="contact" className="bg-sand-900 text-white">
@@ -14,9 +22,7 @@ export function Footer() {
               CLICK NÁUTICO
             </h3>
             <p className="text-sand-400 mb-6 max-w-md leading-relaxed">
-              Escola de Kite Surf e passeios turísticos no coração do litoral
-              potiguar. Desde {STATS.yearsFounded}, transformando sonhos em
-              realidade sobre as águas.
+              {t.footer.description}
             </p>
             <div className="flex gap-4">
               <a
@@ -72,15 +78,10 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-sand-400 mb-4">
-              Navegação
+              {t.footer.navigation}
             </h4>
             <ul className="space-y-3">
-              {[
-                { label: 'Início', href: '#home' },
-                { label: 'Kite School', href: '#kite' },
-                { label: 'Passeios', href: '#tours' },
-                { label: 'Contato', href: '#contact' },
-              ].map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
@@ -96,7 +97,7 @@ export function Footer() {
           {/* Location */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-sand-400 mb-4">
-              Localização
+              {t.footer.location}
             </h4>
             <address className="not-italic text-sand-300 space-y-2">
               <p className="font-medium text-white">{LOCATION.name}</p>
@@ -115,11 +116,10 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sand-500 text-sm">
-              &copy; {currentYear} Click Náutico. Todos os direitos reservados.
+              {t.footer.copyright}
             </p>
             <p className="text-sand-600 text-xs">
-              Desenvolvido com{' '}
-              <span className="text-coral-500">&hearts;</span> em Touros-RN
+              {t.footer.madeWith}
             </p>
           </div>
         </div>
