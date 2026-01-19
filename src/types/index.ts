@@ -7,6 +7,9 @@ export interface LessonPrice {
   isPopular?: boolean
   highlight?: string
   features?: string[]
+  nameKey?: string
+  subtitleKey?: string
+  descKey?: string
 }
 
 export interface RentalPrice {
@@ -16,6 +19,8 @@ export interface RentalPrice {
   h1: number
   h2: number
   daily: number
+  itemKey?: string
+  descKey?: string
 }
 
 export interface TourItem {
@@ -26,6 +31,10 @@ export interface TourItem {
   duration?: string
   image: string
   highlights?: string[]
+  titleKey?: string
+  descKey?: string
+  durationKey?: string
+  highlightsKeys?: string[]
 }
 
 export interface CourseStage {
@@ -34,6 +43,8 @@ export interface CourseStage {
   description: string
   imageKeyword: string
   icon?: string
+  titleKey?: string
+  descKey?: string
 }
 
 export interface Testimonial {
