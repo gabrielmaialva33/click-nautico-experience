@@ -60,7 +60,7 @@ export function Tours() {
                   src={`https://images.unsplash.com/${tour.id === 'maracajau'
                     ? 'photo-1544551763-46a013bb70d5'
                     : tour.id === 'buggy'
-                      ? 'photo-1583207804762-9f6c7d25e04d'
+                      ? 'photo-1507525428034-b723cf961d3e'
                       : 'photo-1502933691298-84fc14542831'
                     }?w=800&q=80`}
                   alt={tour.titleKey ? tr(tour.titleKey) : tour.title}
