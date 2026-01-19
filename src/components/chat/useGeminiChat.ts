@@ -17,8 +17,10 @@ const generateId = () => Math.random().toString(36).substring(2, 9)
 const stripThinkingTags = (text: string): string => {
   // Remove complete tags: <think>...</think> and <thinking>...</thinking>
   let cleaned = text.replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>\s*/gi, '')
-  // Remove incomplete opening tags during streaming (e.g., "<thinking>partial text")
-  cleaned = cleaned.replace(/<think(?:ing)?>[^<]*$/gi, '')
+  // Remove incomplete tags during streaming (tag opened but not closed yet)
+  cleaned = cleaned.replace(/<think(?:ing)?>[\s\S]*$/gi, '')
+  // Remove partial opening tags during streaming (e.g., "<think", "<thi")
+  cleaned = cleaned.replace(/<t(?:h(?:i(?:n(?:k(?:i(?:n(?:g)?)?)?)?)?)?)?$/gi, '')
   return cleaned.trim()
 }
 
