@@ -16,7 +16,7 @@ export function ChatWidget() {
       </AnimatePresence>
 
       {/* Toggle Button - hidden when chat is open on mobile */}
-      <div className={`fixed bottom-6 right-4 z-50 flex flex-col items-end gap-4 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
+      <div className={`fixed bottom-4 right-4 z-50 flex flex-col items-end gap-4 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
         {/* Tooltip on hover */}
         {!isOpen && (
           <m.div
@@ -32,7 +32,7 @@ export function ChatWidget() {
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Chat AI"
-          className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-ocean-500 to-ocean-600 shadow-lg shadow-ocean-500/30 transition-all hover:shadow-xl hover:shadow-ocean-500/40 border border-white/10"
+          className="group relative flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-gradient-to-br from-ocean-500 to-ocean-600 shadow-lg shadow-ocean-500/30 transition-all hover:shadow-xl hover:shadow-ocean-500/40 border border-white/10"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -43,7 +43,7 @@ export function ChatWidget() {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <X className="h-6 w-6 text-white" strokeWidth={2.5} />
+                <X className="h-5 w-5 md:h-6 md:w-6 text-white" strokeWidth={2.5} />
               </m.div>
             ) : (
               <m.div

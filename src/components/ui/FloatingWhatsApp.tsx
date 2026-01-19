@@ -19,7 +19,7 @@ export function FloatingWhatsApp() {
       aria-label={t.nav.whatsappContact}
     >
       <svg
-        className="w-7 h-7 md:w-8 md:h-8"
+        className="w-5 h-5 md:w-7 md:h-7"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
