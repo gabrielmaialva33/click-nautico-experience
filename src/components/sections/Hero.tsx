@@ -13,7 +13,7 @@ export function Hero() {
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero-vila-gale.webp"
+          src={`${import.meta.env.BASE_URL}hero-vila-gale.webp`}
           alt={t.hero.imageAlt}
           className="w-full h-full object-cover object-center"
         />
