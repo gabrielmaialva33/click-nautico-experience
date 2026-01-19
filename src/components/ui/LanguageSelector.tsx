@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useI18n } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 
-export function LanguageSelector() {
+export function LanguageSelector({ className }: { className?: string }) {
   const { locale, setLocale, locales } = useI18n()
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -23,13 +24,13 @@ export function LanguageSelector() {
     <div ref={containerRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm transition-colors hover:bg-white/10"
+        className={cn("flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm transition-colors hover:bg-black/5", className)}
         aria-label="Select language"
       >
         <span className="text-base">{currentLocale?.flag}</span>
-        <span className="hidden font-medium text-white/90 sm:inline">{currentLocale?.code.toUpperCase()}</span>
+        <span className="hidden font-medium opacity-90 sm:inline">{currentLocale?.code.toUpperCase()}</span>
         <svg
-          className={`h-3.5 w-3.5 text-white/70 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`h-3.5 w-3.5 opacity-70 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -54,9 +55,8 @@ export function LanguageSelector() {
                   setLocale(l.code)
                   setIsOpen(false)
                 }}
-                className={`flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-colors hover:bg-white/10 ${
-                  locale === l.code ? 'bg-white/5 text-cyan-400' : 'text-white/90'
-                }`}
+                className={`flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-colors hover:bg-white/10 ${locale === l.code ? 'bg-white/5 text-cyan-400' : 'text-white/90'
+                  }`}
               >
                 <span className="text-base">{l.flag}</span>
                 <span className="font-medium">{l.name}</span>
