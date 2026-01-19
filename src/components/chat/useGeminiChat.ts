@@ -13,9 +13,13 @@ import type { Message, ChatState } from './types'
 
 const generateId = () => Math.random().toString(36).substring(2, 9)
 
-// Remove <think>...</think> tags from NVIDIA responses (internal reasoning)
+// Remove <think>/<thinking> tags from AI responses (internal reasoning)
 const stripThinkingTags = (text: string): string => {
-  return text.replace(/<think>[\s\S]*?<\/think>\s*/gi, '').trim()
+  // Remove complete tags: <think>...</think> and <thinking>...</thinking>
+  let cleaned = text.replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>\s*/gi, '')
+  // Remove incomplete opening tags during streaming (e.g., "<thinking>partial text")
+  cleaned = cleaned.replace(/<think(?:ing)?>[^<]*$/gi, '')
+  return cleaned.trim()
 }
 
 export function useGeminiChat() {
@@ -60,22 +64,25 @@ export function useGeminiChat() {
       for await (const chunk of result.stream) {
         const chunkText = chunk.text()
         fullResponse += chunkText
+        // Strip thinking tags during streaming to hide AI's internal reasoning
+        const displayText = stripThinkingTags(fullResponse)
 
         setState((prev) => ({
           ...prev,
           messages: prev.messages.map((msg) =>
-            msg.id === assistantMessageId ? { ...msg, content: fullResponse } : msg
+            msg.id === assistantMessageId ? { ...msg, content: displayText } : msg
           ),
         }))
       }
 
-      // Update history
+      // Update history (clean version without thinking tags)
+      const cleanedResponse = stripThinkingTags(fullResponse)
       historyRef.current.push(
         { role: 'user', parts: [{ text: content }] },
-        { role: 'model', parts: [{ text: fullResponse }] }
+        { role: 'model', parts: [{ text: cleanedResponse }] }
       )
 
-      return fullResponse
+      return cleanedResponse
     },
     [locale]
   )
