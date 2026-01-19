@@ -34,6 +34,10 @@ jobs:
         run: npm run build
         env:
           VITE_GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
+          VITE_NVIDIA_API_KEY_1: ${{ secrets.VITE_NVIDIA_API_KEY_1 }}
+          VITE_NVIDIA_API_KEY_2: ${{ secrets.VITE_NVIDIA_API_KEY_2 }}
+          VITE_NVIDIA_API_KEY_3: ${{ secrets.VITE_NVIDIA_API_KEY_3 }}
+          VITE_NVIDIA_API_KEY_4: ${{ secrets.VITE_NVIDIA_API_KEY_4 }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
