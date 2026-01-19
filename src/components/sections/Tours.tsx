@@ -11,7 +11,7 @@ export function Tours() {
   const tr = (key: string) => resolveTranslation(t, key)
 
   return (
-    <section id="tours" className="py-20 md:py-32 bg-gray-900 relative overflow-hidden">
+    <section id="tours" className="py-20 md:py-32 bg-sand-950 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[1000px] h-[1000px] bg-ocean-500/10 rounded-full blur-[120px]" />
@@ -52,7 +52,7 @@ export function Tours() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative bg-gray-800 rounded-[2rem] overflow-hidden shadow-2xl hover:shadow-coral-500/20 transition-all duration-500 border border-gray-700 hover:border-coral-500/50 hover:-translate-y-2 h-full flex flex-col"
+              className="group relative bg-white/5 backdrop-blur-sm rounded-[2rem] overflow-hidden shadow-2xl hover:shadow-coral-500/20 transition-all duration-500 border border-white/10 hover:border-coral-500/50 hover:-translate-y-2 h-full flex flex-col"
             >
               {/* Image - Cinematic Aspect */}
               <div className="relative h-80 overflow-hidden">
@@ -64,10 +64,12 @@ export function Tours() {
                       : 'photo-1502933691298-84fc14542831'
                     }?w=800&q=80`}
                   alt={tour.titleKey ? tr(tour.titleKey) : tour.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 saturate-100 group-hover:saturate-125"
                 />
                 {/* Cinematic Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-sand-950 via-sand-950/40 to-transparent opacity-90" />
 
                 {/* Duration badge - Tech Pill */}
                 {(tour.durationKey || tour.duration) && (
@@ -96,7 +98,7 @@ export function Tours() {
                 </div>
               </div>
 
-              {/* Content - Dark Mode */}
+              {/* Content - Glass Mode */}
               <div className="p-8 flex flex-col flex-grow">
                 <p className="text-gray-400 text-base leading-relaxed mb-8 flex-grow">
                   {tour.descKey ? tr(tour.descKey) : tour.description}
@@ -104,7 +106,7 @@ export function Tours() {
 
                 <button
                   onClick={() => openBooking('tour', tour.titleKey ? tr(tour.titleKey) : tour.title)}
-                  className="block w-full text-center bg-white text-gray-900 hover:bg-coral-500 hover:text-white py-4 rounded-xl font-black text-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="block w-full text-center bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-400 hover:to-coral-500 text-white py-4 rounded-xl font-black text-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-coral-500/30"
                 >
                   {t.tours.checkAvailability}
                 </button>

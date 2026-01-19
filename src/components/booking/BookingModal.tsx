@@ -81,7 +81,7 @@ export function BookingModal() {
           setFormData({ ...formData, type: 'kite' })
           handleNext()
         }}
-        className="flex flex-col items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors hover:bg-cyan-500/20"
+        className="flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 transition-all hover:bg-ocean-500/20 hover:border-ocean-500/50 hover:scale-[1.02]"
       >
         <span className="text-4xl">🪁</span>
         <span className="font-semibold text-white">{t.booking.type.kite}</span>
@@ -91,7 +91,7 @@ export function BookingModal() {
           setFormData({ ...formData, type: 'tour' })
           handleNext()
         }}
-        className="flex flex-col items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors hover:bg-cyan-500/20"
+        className="flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 transition-all hover:bg-coral-500/20 hover:border-coral-500/50 hover:scale-[1.02]"
       >
         <span className="text-4xl">🌴</span>
         <span className="font-semibold text-white">{t.booking.type.tour}</span>
@@ -109,8 +109,7 @@ export function BookingModal() {
           value={formData.package}
           onChange={(e) => setFormData({ ...formData, package: e.target.value })}
           placeholder={t.booking.placeholders.package}
-          style={{ backgroundColor: '#000000', color: '#ffffff' }}
-          className="w-full rounded-lg px-4 py-2 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-ocean-500/50 focus:border-ocean-500/50 transition-all"
         />
       </div>
       <div>
@@ -120,8 +119,8 @@ export function BookingModal() {
           type="date"
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-          style={{ colorScheme: 'dark', backgroundColor: '#000000', color: '#ffffff' }}
-          className="w-full rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-500"
+          style={{ colorScheme: 'dark' }}
+          className="w-full rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-white outline-none focus:ring-2 focus:ring-ocean-500/50 focus:border-ocean-500/50 transition-all"
         />
       </div>
       <div className="flex justify-between pt-4">
@@ -131,7 +130,7 @@ export function BookingModal() {
         <button
           onClick={handleNext}
           disabled={!formData.date}
-          className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2 font-semibold text-white disabled:opacity-50"
+          className="rounded-xl bg-gradient-to-r from-ocean-500 to-ocean-600 px-6 py-2.5 font-semibold text-white disabled:opacity-50 shadow-lg shadow-ocean-500/30 hover:from-ocean-400 hover:to-ocean-500 transition-all"
         >
           {t.booking.labels.next} →
         </button>
@@ -149,8 +148,7 @@ export function BookingModal() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t.booking.placeholders.name}
-          style={{ backgroundColor: '#000000', color: '#ffffff' }}
-          className="w-full rounded-lg px-4 py-2 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-ocean-500/50 focus:border-ocean-500/50 transition-all"
         />
       </div>
       <div>
@@ -160,8 +158,7 @@ export function BookingModal() {
           value={formData.notes}
           onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
           placeholder={t.booking.placeholders.notes}
-          style={{ backgroundColor: '#000000', color: '#ffffff' }}
-          className="w-full rounded-lg px-4 py-2 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-ocean-500/50 focus:border-ocean-500/50 transition-all"
           rows={3}
         />
       </div>
@@ -182,7 +179,7 @@ export function BookingModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-sand-950/80 px-4 backdrop-blur-xl"
       onClick={handleBackdropClick}
     >
       <motion.div
@@ -193,14 +190,14 @@ export function BookingModal() {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-2xl"
+        className="w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-sand-950/90 backdrop-blur-xl shadow-2xl shadow-black/50"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-white/10 bg-white/5 backdrop-blur-md px-6 py-4">
           <h3 id="modal-title" className="text-lg font-bold text-white">
             {step === 1 ? t.booking.step1 : step === 2 ? t.booking.step2 : t.booking.step3}
           </h3>
-          <button onClick={closeBooking} className="text-white/50 hover:text-white" aria-label="Close modal">✕</button>
+          <button onClick={closeBooking} className="text-white/50 hover:text-white transition-colors" aria-label="Close modal">✕</button>
         </div>
 
         <div className="p-6">
@@ -212,7 +209,7 @@ export function BookingModal() {
         {/* Progress Bar */}
         <div className="h-1 w-full bg-white/5">
           <motion.div
-            className="h-full bg-cyan-500"
+            className="h-full bg-gradient-to-r from-ocean-500 to-ocean-400"
             animate={{ width: `${(step / 3) * 100}%` }}
           />
         </div>

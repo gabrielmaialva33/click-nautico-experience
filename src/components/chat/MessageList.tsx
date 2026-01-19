@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Wind, DollarSign, Ship, Calendar } from 'lucide-react'
 import { MessageBubble } from './MessageBubble'
@@ -21,11 +21,30 @@ const quickReplies = [
 
 export function MessageList({ messages, isLoading, onQuickReply }: MessageListProps) {
   const { t } = useI18n()
-  const bottomRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const prevMessageCount = useRef(0)
+
+  // Scroll suave apenas quando houver novas mensagens
+  const scrollToBottom = useCallback(() => {
+    if (!containerRef.current) return
+    requestAnimationFrame(() => {
+      containerRef.current?.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: 'smooth'
+      })
+    })
+  }, [])
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, isLoading])
+    // Só faz scroll se mensagens aumentaram
+    if (messages.length > prevMessageCount.current) {
+      // Delay para aguardar animação de entrada
+      const timer = setTimeout(scrollToBottom, 150)
+      prevMessageCount.current = messages.length
+      return () => clearTimeout(timer)
+    }
+    prevMessageCount.current = messages.length
+  }, [messages.length, scrollToBottom])
 
   if (messages.length === 0) {
     return (
@@ -78,8 +97,11 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
   }
 
   return (
-    <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-      <AnimatePresence mode="popLayout">
+    <div
+      ref={containerRef}
+      className="flex-1 space-y-4 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
+    >
+      <AnimatePresence mode="sync">
         {messages.map((message, index) => (
           <MessageBubble
             key={message.id}
@@ -120,8 +142,6 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
           </div>
         </motion.div>
       )}
-
-      <div ref={bottomRef} />
     </div>
   )
 }

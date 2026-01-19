@@ -152,7 +152,7 @@ export function useGeminiChat() {
       if (actions.length > 0) {
         actions.forEach(action => {
           console.log('Executing Client Tool:', action)
-          if (action.type === 'SAVE_NAME') setVisitorName(action.payload)
+          if (action.type === 'SAVE_NAME') { console.log('Action: Saving Name', action.payload); setVisitorName(action.payload) }
           if (action.type === 'SAVE_ROLE') setVisitorRole(action.payload)
         })
 

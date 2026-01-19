@@ -12,9 +12,11 @@ export function Footer() {
   ]
 
   return (
-    <footer id="contact" className="bg-black text-white border-t border-white/10">
+    <footer id="contact" className="bg-sand-950 text-white border-t border-white/10 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-ocean-500/5 rounded-full blur-[120px]" />
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
           {/* Brand */}
           <div className="lg:col-span-2 space-y-8">
@@ -32,7 +34,7 @@ export function Footer() {
                 href={INSTAGRAM_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-white/5 hover:bg-white/20 border border-white/10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                className="w-12 h-12 bg-white/5 hover:bg-white/20 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center transition-all hover:scale-110 hover:border-ocean-500/50"
                 aria-label="Instagram"
               >
                 <svg
@@ -50,7 +52,7 @@ export function Footer() {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-green-600 hover:bg-green-500 shadow-lg shadow-green-900/20 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 shadow-lg shadow-green-500/30 rounded-full flex items-center justify-center transition-all hover:scale-110"
                 aria-label="WhatsApp"
               >
                 <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -62,7 +64,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-6 border-b border-gray-800 pb-2 inline-block">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-ocean-400 mb-6 border-b border-white/10 pb-2 inline-block">
               {t.footer.navigation}
             </h4>
             <ul className="space-y-4">
@@ -70,7 +72,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors text-lg"
+                    className="text-gray-400 hover:text-ocean-400 transition-colors text-lg"
                   >
                     {link.label}
                   </a>
@@ -81,7 +83,7 @@ export function Footer() {
 
           {/* Location */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-6 border-b border-gray-800 pb-2 inline-block">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-ocean-400 mb-6 border-b border-white/10 pb-2 inline-block">
               {t.footer.location}
             </h4>
             <address className="not-italic text-gray-400 space-y-3 text-lg">
@@ -97,13 +99,13 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/5 bg-black/50">
+      <div className="border-t border-white/5 bg-white/5 backdrop-blur-sm relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-500 text-sm">
               {t.footer.copyright}
             </p>
-            <p className="text-gray-400 text-xs font-mono">
+            <p className="text-gray-500 text-xs font-mono">
               {t.footer.madeWith}
             </p>
           </div>

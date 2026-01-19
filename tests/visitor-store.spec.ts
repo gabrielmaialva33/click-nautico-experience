@@ -48,7 +48,8 @@ test.describe('Smart Visitor Store', () => {
       const url = route.request().url();
       if (url.includes('click-nautico-ai')) {
         await route.fulfill({
-          json: { choices: [{ message: { content: "Saved! [SAVE_NAME: Real User]" } }] }
+          body: `data: ${JSON.stringify({ choices: [{ delta: { content: "Saved! [SAVE_NAME: Real User]" } }] })}\n\ndata: [DONE]\n\n`,
+          headers: { 'Content-Type': 'text/event-stream' }
         });
       } else {
         await route.continue();
@@ -57,11 +58,11 @@ test.describe('Smart Visitor Store', () => {
 
     // 2. Open Chat & Interact
     await page.getByRole('button', { name: /chat/i }).click();
-    await page.getByPlaceholder('Digite sua mensagem...').fill('Sou Real User');
-    await page.getByPlaceholder('Digite sua mensagem...').press('Enter');
+    await page.getByPlaceholder(/Manda tua pergunta/i).fill('Sou Real User');
+    await page.getByPlaceholder(/Manda tua pergunta/i).press('Enter');
 
     // 3. Wait for UI confirmation (implies store update)
-    await expect(page.locator('.prose').last()).toContainText('Saved!');
+    await expect(page.locator('.whitespace-pre-wrap').last()).toContainText('Saved!');
 
     // 4. Verify Storage BEFORE reload
     const nameBefore = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).state.name, STORAGE_KEY);

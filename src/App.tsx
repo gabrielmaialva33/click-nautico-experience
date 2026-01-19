@@ -1,14 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { Hero } from './components/sections/Hero'
-import { KiteSchool } from './components/sections/KiteSchool'
-import { Tours } from './components/sections/Tours'
-import { Footer } from './components/sections/Footer'
-import { FloatingWhatsApp } from './components/ui/FloatingWhatsApp'
 import { Navbar } from './components/ui/Navbar'
-import { ChatWidget } from './components/chat'
 import { BookingProvider } from './components/booking/BookingContext'
-import { BookingModal } from './components/booking/BookingModal'
 import { useVisitorStore } from './store/visitorStore'
+
+// Lazy load components below the fold
+const KiteSchool = lazy(() => import('./components/sections/KiteSchool').then(m => ({ default: m.KiteSchool })))
+const Tours = lazy(() => import('./components/sections/Tours').then(m => ({ default: m.Tours })))
+const Footer = lazy(() => import('./components/sections/Footer').then(m => ({ default: m.Footer })))
+const FloatingWhatsApp = lazy(() => import('./components/ui/FloatingWhatsApp').then(m => ({ default: m.FloatingWhatsApp })))
+const ChatWidget = lazy(() => import('./components/chat').then(m => ({ default: m.ChatWidget })))
+const BookingModal = lazy(() => import('./components/booking/BookingModal').then(m => ({ default: m.BookingModal })))
 
 export default function App() {
   const { updateContext } = useVisitorStore()
@@ -33,17 +35,21 @@ export default function App() {
 
   return (
     <BookingProvider>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-sand-950">
         <Navbar />
         <main>
           <Hero />
-          <KiteSchool />
-          <Tours />
+          <Suspense fallback={<div className="min-h-screen bg-sand-950" />}>
+            <KiteSchool />
+            <Tours />
+          </Suspense>
         </main>
-        <Footer />
-        <FloatingWhatsApp />
-        <ChatWidget />
-        <BookingModal />
+        <Suspense fallback={null}>
+          <Footer />
+          <FloatingWhatsApp />
+          <ChatWidget />
+          <BookingModal />
+        </Suspense>
       </div>
     </BookingProvider>
   )

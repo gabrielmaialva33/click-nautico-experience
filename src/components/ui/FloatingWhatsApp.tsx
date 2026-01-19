@@ -15,7 +15,7 @@ export function FloatingWhatsApp() {
       transition={{ delay: 1, type: 'spring', stiffness: 200 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-green-600 text-white rounded-full shadow-lg shadow-green-600/30 hover:bg-green-700 transition-colors"
+      className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full shadow-2xl shadow-green-500/40 hover:from-green-400 hover:to-green-500 transition-all border border-green-400/20"
       aria-label={t.nav.whatsappContact}
     >
       <svg

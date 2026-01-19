@@ -34,7 +34,7 @@ export const useVisitorStore = create<VisitorState>()(
         lastVisit: Date.now(),
       },
 
-      setName: (name) => set({ name }),
+      setName: (name) => { console.log('Store: setting name to', name); set({ name }) },
       setRole: (role) => set({ role }),
       updateContext: (newContext) =>
         set((state) => ({

@@ -22,11 +22,13 @@ export default defineConfig({
     target: 'esnext',
     minify: 'esbuild',
     cssMinify: true,
+    chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'framer-motion': ['framer-motion'],
+          'zustand': ['zustand'],
         },
       },
     },
