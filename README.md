@@ -3,11 +3,11 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/gabrielmaialva33/click-nautico-experience?color=00b8d3&style=flat-square" alt="Licença" />
-  <img src="https://img.shields.io/github/languages/top/gabrielmaialva33/click-nautico-experience?style=flat-square" alt="Linguagem principal" />
-  <img src="https://img.shields.io/github/repo-size/gabrielmaialva33/click-nautico-experience?style=flat-square" alt="Tamanho do repositório" />
+  <img src="https://img.shields.io/github/license/gabrielmaialva33/click-nautico-experience?color=00b8d3&style=flat-square&label=Licen%C3%A7a" alt="Licença" />
+  <img src="https://img.shields.io/github/languages/top/gabrielmaialva33/click-nautico-experience?style=flat-square&label=Linguagem" alt="Linguagem principal" />
+  <img src="https://img.shields.io/github/repo-size/gabrielmaialva33/click-nautico-experience?style=flat-square&label=Tamanho" alt="Tamanho do repositório" />
   <a href="https://github.com/gabrielmaialva33/click-nautico-experience/commits/main">
-    <img src="https://img.shields.io/github/last-commit/gabrielmaialva33/click-nautico-experience?style=flat-square" alt="Último commit" />
+    <img src="https://img.shields.io/github/last-commit/gabrielmaialva33/click-nautico-experience?style=flat-square&label=%C3%9Altimo%20commit" alt="Último commit" />
   </a>
 </p>
 
