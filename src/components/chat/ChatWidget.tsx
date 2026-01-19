@@ -6,7 +6,7 @@ export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+    <div className="fixed bottom-24 right-6 z-50 flex flex-col items-end gap-4">
       <AnimatePresence>
         {isOpen && <ChatContainer onClose={() => setIsOpen(false)} />}
       </AnimatePresence>
@@ -64,9 +64,10 @@ export function ChatWidget() {
           <motion.span
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-gray-900 px-3 py-2 text-sm text-white shadow-lg group-hover:block"
+            className="absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-xl group-hover:block"
           >
-            Fala com a Click AI! 🤙
+            <span className="mr-2">✨</span>
+            Planeje sua viagem com IA!
           </motion.span>
         )}
       </motion.button>
