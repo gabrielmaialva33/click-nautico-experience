@@ -43,10 +43,10 @@ export function Tours() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src={`https://images.unsplash.com/${tour.id === 'maracajau'
-                      ? 'photo-1544551763-46a013bb70d5'
-                      : tour.id === 'buggy'
-                        ? 'photo-1541454564808-16e61de7d699'
-                        : 'photo-1502933691298-84fc14542831'
+                    ? 'photo-1544551763-46a013bb70d5'
+                    : tour.id === 'buggy'
+                      ? 'photo-1583207804762-9f6c7d25e04d'
+                      : 'photo-1502933691298-84fc14542831'
                     }?w=800&q=80`}
                   alt={tour.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { STATS, INSTAGRAM_LINK, WHATSAPP_LINK } from '@/constants'
+import heroImage from '/hero-new.webp'
 
 export function Hero() {
   return (
@@ -10,7 +11,7 @@ export function Hero() {
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero-new.webp"
+          src={heroImage}
           alt="Kitesurf em Touros"
           className="w-full h-full object-cover object-center"
         />
