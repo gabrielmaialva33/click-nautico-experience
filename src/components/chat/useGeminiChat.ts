@@ -3,13 +3,11 @@ import {
   genAI,
   GOOGLE_MODEL,
   SYSTEM_PROMPTS,
-  streamNvidiaChat,
   type AIProvider,
   type NvidiaMessage,
 } from '@/lib/ai'
 import { AIOrchestrator } from '@/lib/ai-orchestrator'
-// Wait, AIOrchestrator is in './ai-orchestrator'.
-// I need new import line.
+import { useVisitorStore } from '@/store/visitorStore'
 import { useI18n } from '@/lib/i18n'
 import type { Message, ChatState } from './types'
 
@@ -80,6 +78,15 @@ export function useGeminiChat() {
     [locale]
   )
 
+  /* New: Visitor Store Integration */
+  const {
+    name: visitorName,
+    role: visitorRole,
+    context: visitorContext,
+    setName: setVisitorName,
+    setRole: setVisitorRole
+  } = useVisitorStore()
+
   /* New State for UI feedback */
   const [orchestrationStatus, setOrchestrationStatus] = useState<string | null>(null)
 
@@ -88,24 +95,37 @@ export function useGeminiChat() {
       const orchestrator = new AIOrchestrator(locale)
 
       // 1. Determine Intent
-      setOrchestrationStatus('Analyzing intent...')
-      const intent = await orchestrator.classifyIntent(content, false) // attachments support pending
+      setOrchestrationStatus('Pensando...')
 
-      // 2. Select Model
-      const model = orchestrator.selectModel(intent)
-      setOrchestrationStatus(`Using ${model.split('/')[1]}...`) // Show "llama-3.3..."
+      // Basic attachment check (mock for now as UI doesn't expose file input yet)
+      const intent = await orchestrator.classifyIntent(content, false)
+
+      // 2. Select Model - don't show model name to user
+      orchestrator.selectModel(intent)
+      setOrchestrationStatus(null)
 
       const messages: NvidiaMessage[] = [
         ...nvidiaHistoryRef.current,
         { role: 'user', content },
       ]
 
+      // Prepare Visitor Context
+      const currentVisitorData = {
+        name: visitorName,
+        role: visitorRole,
+        context: visitorContext
+      }
+
       let fullResponse = ''
 
       try {
-        // 3. Stream with selected model
-        for await (const chunk of streamNvidiaChat(messages, locale, model)) {
+        // 3. Stream with selected model AND Visitor Context
+        const generator = orchestrator.executeWithContext(intent, messages, currentVisitorData)
+
+        for await (const chunk of generator) {
           fullResponse += chunk
+          // Parse tools on the fly or just display raw?
+          // Better to display raw and clean up at the end to avoid flickering
           const displayText = stripThinkingTags(fullResponse)
 
           setState((prev) => ({
@@ -125,16 +145,35 @@ export function useGeminiChat() {
         setOrchestrationStatus(null)
       }
 
-      // Update NVIDIA history (without thinking tags)
-      const cleanResponse = stripThinkingTags(fullResponse)
+      // 4. Process Client Tools (Post-generation)
+      const { cleanedResponse, actions } = orchestrator.processClientTools(fullResponse)
+
+      // Execute actions
+      if (actions.length > 0) {
+        actions.forEach(action => {
+          console.log('Executing Client Tool:', action)
+          if (action.type === 'SAVE_NAME') setVisitorName(action.payload)
+          if (action.type === 'SAVE_ROLE') setVisitorRole(action.payload)
+        })
+
+        // Update the displayed message to remove the tags
+        setState((prev) => ({
+          ...prev,
+          messages: prev.messages.map((msg) =>
+            msg.id === assistantMessageId ? { ...msg, content: stripThinkingTags(cleanedResponse) } : msg
+          ),
+        }))
+      }
+
+      // Update NVIDIA history (clean version)
       nvidiaHistoryRef.current.push(
         { role: 'user', content },
-        { role: 'assistant', content: cleanResponse }
+        { role: 'assistant', content: stripThinkingTags(cleanedResponse) }
       )
 
-      return cleanResponse
+      return cleanedResponse
     },
-    [locale]
+    [locale, visitorName, visitorRole, visitorContext, setVisitorName, setVisitorRole]
   )
 
   const sendMessage = useCallback(

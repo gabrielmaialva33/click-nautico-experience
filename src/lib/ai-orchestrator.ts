@@ -89,4 +89,71 @@ export class AIOrchestrator {
     }
     return result
   }
+
+  /**
+   * Main execution method that handles streaming, model selection, and Visitor Context injection.
+   */
+  async *executeWithContext(
+    intent: Intent,
+    messages: NvidiaMessage[],
+    visitorContext?: any
+  ): AsyncGenerator<string, void, unknown> {
+    const modelId = this.selectModel(intent)
+
+    // Inject Visitor Context if present
+    const contextPrompt = visitorContext ? `
+    [VISITOR CONTEXT]
+    Name: ${visitorContext.name || 'Unknown'}
+    Role: ${visitorContext.role}
+    Sessions: ${visitorContext.context.sessionCount}
+    Last Section: ${visitorContext.context.lastSection}
+
+    [INSTRUCTIONS]
+    - If the user introduces themselves, reply normally BUT include this tag at the end: [SAVE_NAME: Full Name]
+    - If the user says they are a student/tourist, include: [SAVE_ROLE: student|tourist]
+    - Personalize based on their role/name (e.g. "Welcome back, Gabriel!").
+    - Be concise and helpful.
+    ` : ''
+
+    // Patch the system message if it exists, otherwise add one
+    const systemMessageIndex = messages.findIndex(m => m.role === 'system')
+    if (systemMessageIndex !== -1) {
+      messages[systemMessageIndex].content += `\n${contextPrompt}`
+    } else {
+      messages.unshift({
+        role: 'system',
+        content: `You are the Click Náutico AI Assistant. ${contextPrompt}`
+      })
+    }
+
+    const generator = streamNvidiaChat(messages, this.locale, modelId)
+    for await (const chunk of generator) {
+      yield chunk
+    }
+  }
+
+  /**
+   * Parses the AI response for client-side tool triggers.
+   * Returns cleaned text (hidden tags removed) and a list of actions.
+   */
+  processClientTools(response: string): { cleanedResponse: string, actions: any[] } {
+    let text = response
+    const actions: any[] = []
+
+    // Regex for [SAVE_NAME: ...]
+    const nameMatch = text.match(/\[SAVE_NAME:\s*(.*?)\]/)
+    if (nameMatch) {
+      actions.push({ type: 'SAVE_NAME', payload: nameMatch[1].trim() })
+      text = text.replace(nameMatch[0], '')
+    }
+
+    // Regex for [SAVE_ROLE: ...]
+    const roleMatch = text.match(/\[SAVE_ROLE:\s*(.*?)\]/)
+    if (roleMatch) {
+      actions.push({ type: 'SAVE_ROLE', payload: roleMatch[1].trim().toLowerCase() })
+      text = text.replace(roleMatch[0], '')
+    }
+
+    return { cleanedResponse: text, actions }
+  }
 }

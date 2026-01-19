@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-export type { Locale } from './i18n' // It was 'import type', now export it. Or just export from i18n directly?
+// export type { Locale } from './i18n'
+export type Locale = 'pt' | 'en' | 'es'
 // The error said "Module './ai' declares 'Locale' locally".
 // Line 2 was: import type { Locale } from './i18n'
 // I should export it. `export type { Locale } from './i18n'`
