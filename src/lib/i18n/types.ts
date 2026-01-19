@@ -49,7 +49,18 @@ export interface Translations {
     onlyKite: string
     onlyBoard: string
     hour: string
+    hours: string
     note: string
+    value: string
+    reserve: string
+    item: string
+    daily: string
+    accessories: string
+    accessoriesList: string
+    oneTimeFee: string
+    specialExperiences: string
+    specialDesc: string
+    perPerson: string
   }
   tours: {
     badge: string
@@ -103,6 +114,8 @@ export interface Translations {
       name: string
       notes: string
       send: string
+      back: string
+      next: string
     }
     placeholders: {
       package: string

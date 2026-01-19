@@ -9,6 +9,7 @@ const translations: Record<Locale, Translations> = { pt, en, es }
 interface I18nContextType {
   locale: Locale
   t: Translations
+  translate: (key: string) => string
   setLocale: (locale: Locale) => void
   locales: { code: Locale; name: string; flag: string }[]
 }
@@ -74,12 +75,22 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const t = translations[locale]
 
+  // Helper to access nested keys like 'kite.step1Title'
+  const translate = useCallback((key: string): string => {
+    const keys = key.split('.')
+    let result: unknown = t
+    for (const k of keys) {
+      result = (result as Record<string, unknown>)?.[k]
+    }
+    return (result as string) || key
+  }, [t])
+
   if (!isInitialized) {
     return null // Prevent flash of wrong language
   }
 
   return (
-    <I18nContext.Provider value={{ locale, t, setLocale, locales }}>
+    <I18nContext.Provider value={{ locale, t, translate, setLocale, locales }}>
       {children}
     </I18nContext.Provider>
   )
