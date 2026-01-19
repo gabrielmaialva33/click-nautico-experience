@@ -33,17 +33,17 @@ function detectBrowserLocale(): Locale {
 }
 
 function getInitialLocale(): Locale {
-  // 1. Check localStorage
-  const stored = localStorage.getItem(STORAGE_KEY) as Locale | null
-  if (stored && ['pt', 'en', 'es'].includes(stored)) {
-    return stored
-  }
-
-  // 2. Check URL param
+  // 1. Check URL param first (allows shareable links)
   const urlParams = new URLSearchParams(window.location.search)
   const urlLocale = urlParams.get('lang') as Locale | null
   if (urlLocale && ['pt', 'en', 'es'].includes(urlLocale)) {
     return urlLocale
+  }
+
+  // 2. Check localStorage (user preference)
+  const stored = localStorage.getItem(STORAGE_KEY) as Locale | null
+  if (stored && ['pt', 'en', 'es'].includes(stored)) {
+    return stored
   }
 
   // 3. Detect from browser

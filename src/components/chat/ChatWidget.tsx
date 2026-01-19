@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChatContainer } from './ChatContainer'
+import { useI18n } from '@/lib/i18n'
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
+  const { t } = useI18n()
 
   return (
     <div className="fixed bottom-24 right-6 z-50 flex flex-col items-end gap-4">
@@ -16,6 +18,7 @@ export function ChatWidget() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Chat AI"
         className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-700 shadow-lg shadow-cyan-500/30 transition-shadow hover:shadow-xl hover:shadow-cyan-500/40"
       >
         <AnimatePresence mode="wait">
@@ -67,7 +70,7 @@ export function ChatWidget() {
             className="absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-xl group-hover:block"
           >
             <span className="mr-2">✨</span>
-            Planeje sua viagem com IA!
+            {t.chat.tooltip}
           </motion.span>
         )}
       </motion.button>

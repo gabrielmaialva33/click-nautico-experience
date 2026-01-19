@@ -7,6 +7,7 @@ export const es: Translations = {
     tours: 'Tours',
     contact: 'Contacto',
     bookClass: 'Reservar Clase',
+    whatsappContact: 'Contacto vía WhatsApp',
   },
   hero: {
     since: 'Vila Galé Touros • Desde 2018',
@@ -17,6 +18,7 @@ export const es: Translations = {
     followers: 'Seguidores',
     bookClass: 'Reservar Clase',
     scroll: 'Scroll',
+    imageAlt: 'Kitesurf en Touros',
   },
   kite: {
     badge: 'Kite School',
@@ -99,6 +101,7 @@ export const es: Translations = {
     online: 'En línea ahora',
     clearChat: 'Limpiar chat',
     error: '¡Ups! Algo salió mal. ¿Intentas de nuevo? 😅',
+    tooltip: '¡Planifica tu viaje con IA!',
   },
   booking: {
     title: 'Reservar Experiencia',

@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion'
 import { WHATSAPP_LINK } from '@/constants'
+import { useI18n } from '@/lib/i18n'
 
 export function FloatingWhatsApp() {
+  const { t } = useI18n()
+
   return (
     <motion.a
       href={WHATSAPP_LINK}
@@ -13,7 +16,7 @@ export function FloatingWhatsApp() {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-green-500 text-white rounded-full shadow-lg shadow-green-500/30 hover:bg-green-600 transition-colors"
-      aria-label="Contato via WhatsApp"
+      aria-label={t.nav.whatsappContact}
     >
       <svg
         className="w-7 h-7 md:w-8 md:h-8"

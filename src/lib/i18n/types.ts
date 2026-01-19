@@ -7,6 +7,7 @@ export interface Translations {
     tours: string
     contact: string
     bookClass: string
+    whatsappContact: string
   }
   hero: {
     since: string
@@ -17,6 +18,7 @@ export interface Translations {
     followers: string
     bookClass: string
     scroll: string
+    imageAlt: string
   }
   kite: {
     badge: string
@@ -99,6 +101,7 @@ export interface Translations {
     online: string
     clearChat: string
     error: string
+    tooltip: string
   }
   booking: {
     title: string

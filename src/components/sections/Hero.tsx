@@ -14,7 +14,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <img
           src="/hero-vila-gale.webp"
-          alt="Kitesurf em Touros"
+          alt={t.hero.imageAlt}
           className="w-full h-full object-cover object-center"
         />
         {/* Overlay gradients */}
