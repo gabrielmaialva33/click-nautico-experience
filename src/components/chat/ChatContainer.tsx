@@ -19,7 +19,7 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="flex h-[500px] w-[360px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-cyan-900/95 to-cyan-950/95 shadow-2xl backdrop-blur-xl"
+      className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-gradient-to-b from-cyan-900/98 to-cyan-950/98 backdrop-blur-xl md:static md:inset-auto md:z-auto md:h-[500px] md:w-[360px] md:rounded-2xl md:border md:border-white/10 md:shadow-2xl"
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/10 bg-black/20 px-4 py-3">

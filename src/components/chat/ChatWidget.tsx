@@ -8,10 +8,14 @@ export function ChatWidget() {
   const { t } = useI18n()
 
   return (
-    <div className="fixed bottom-24 right-6 z-50 flex flex-col items-end gap-4">
+    <>
+      {/* Chat Container - full screen mobile, positioned desktop */}
       <AnimatePresence>
         {isOpen && <ChatContainer onClose={() => setIsOpen(false)} />}
       </AnimatePresence>
+
+      {/* Toggle Button - hidden when chat is open on mobile */}
+      <div className={`fixed bottom-20 right-4 z-50 flex flex-col items-end gap-4 md:bottom-24 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
 
       {/* Toggle Button */}
       <motion.button
@@ -19,7 +23,7 @@ export function ChatWidget() {
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Chat AI"
-        className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-700 shadow-lg shadow-cyan-500/30 transition-shadow hover:shadow-xl hover:shadow-cyan-500/40"
+        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-700 shadow-lg shadow-cyan-500/30 transition-shadow hover:shadow-xl hover:shadow-cyan-500/40 md:h-14 md:w-14"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -73,6 +77,7 @@ export function ChatWidget() {
           </motion.span>
         )}
       </motion.button>
-    </div>
+      </div>
+    </>
   )
 }

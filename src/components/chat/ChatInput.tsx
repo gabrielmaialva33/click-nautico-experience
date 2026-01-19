@@ -35,7 +35,7 @@ export function ChatInput({ onSend, isLoading, provider = 'google' }: ChatInputP
   }
 
   return (
-    <div className="border-t border-white/10 bg-black/20 p-3">
+    <div className="border-t border-white/10 bg-black/20 p-3 pb-6 md:pb-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
       <div className="flex items-end gap-2">
         <textarea
           ref={textareaRef}
