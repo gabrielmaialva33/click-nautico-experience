@@ -19,9 +19,9 @@ const I18nContext = createContext<I18nContextType | null>(null)
 const STORAGE_KEY = 'click-nautico-locale'
 
 const locales: { code: Locale; name: string; flag: string }[] = [
-  { code: 'pt', name: 'Português', flag: '🇧🇷' },
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'pt', name: 'Português', flag: 'BR' },
+  { code: 'en', name: 'English', flag: 'US' },
+  { code: 'es', name: 'Español', flag: 'AR' },
 ]
 
 function detectBrowserLocale(): Locale {

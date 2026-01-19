@@ -2,6 +2,16 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import BR from 'country-flag-icons/react/3x2/BR'
+import US from 'country-flag-icons/react/3x2/US'
+import AR from 'country-flag-icons/react/3x2/AR'
+
+// Mapa de locale -> componente de bandeira
+const flagComponents: Record<string, React.ComponentType<{ className?: string }>> = {
+  pt: BR,
+  en: US,
+  es: AR,
+}
 
 export function LanguageSelector({ className }: { className?: string }) {
   const { locale, setLocale, locales } = useI18n()
@@ -9,6 +19,7 @@ export function LanguageSelector({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const currentLocale = locales.find((l) => l.code === locale)
+  const CurrentFlag = flagComponents[locale]
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -27,7 +38,7 @@ export function LanguageSelector({ className }: { className?: string }) {
         className={cn("flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm transition-colors hover:bg-black/5", className)}
         aria-label="Select language"
       >
-        <span className="text-base">{currentLocale?.flag}</span>
+        {CurrentFlag && <CurrentFlag className="h-4 w-5 rounded-sm shadow-sm" />}
         <span className="hidden font-medium opacity-90 sm:inline">{currentLocale?.code.toUpperCase()}</span>
         <svg
           className={`h-3.5 w-3.5 opacity-70 transition-transform ${isOpen ? 'rotate-180' : ''}`}
@@ -48,25 +59,28 @@ export function LanguageSelector({ className }: { className?: string }) {
             transition={{ duration: 0.15 }}
             className="absolute right-0 top-full z-50 mt-2 min-w-[140px] overflow-hidden rounded-xl border border-white/10 bg-cyan-900/95 shadow-xl backdrop-blur-xl"
           >
-            {locales.map((l) => (
-              <button
-                key={l.code}
-                onClick={() => {
-                  setLocale(l.code)
-                  setIsOpen(false)
-                }}
-                className={`flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-colors hover:bg-white/10 ${locale === l.code ? 'bg-white/5 text-cyan-400' : 'text-white/90'
-                  }`}
-              >
-                <span className="text-base">{l.flag}</span>
-                <span className="font-medium">{l.name}</span>
-                {locale === l.code && (
-                  <svg className="ml-auto h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </button>
-            ))}
+            {locales.map((l) => {
+              const FlagComponent = flagComponents[l.code]
+              return (
+                <button
+                  key={l.code}
+                  onClick={() => {
+                    setLocale(l.code)
+                    setIsOpen(false)
+                  }}
+                  className={`flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-colors hover:bg-white/10 ${locale === l.code ? 'bg-white/5 text-cyan-400' : 'text-white/90'
+                    }`}
+                >
+                  {FlagComponent && <FlagComponent className="h-4 w-5 rounded-sm shadow-sm" />}
+                  <span className="font-medium">{l.name}</span>
+                  {locale === l.code && (
+                    <svg className="ml-auto h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </button>
+              )
+            })}
           </motion.div>
         )}
       </AnimatePresence>
