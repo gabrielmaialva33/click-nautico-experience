@@ -65,10 +65,10 @@ export function Navbar() {
               </a>
             ))}
             <div className={cn(
-              'rounded-lg',
+              'rounded-lg transition-colors',
               isScrolled ? 'bg-ocean-500/10' : 'bg-white/10'
             )}>
-              <LanguageSelector />
+              <LanguageSelector className={isScrolled ? 'text-ocean-700 hover:bg-ocean-500/5' : 'text-white hover:bg-white/10'} />
             </div>
             <a
               href={WHATSAPP_LINK}
@@ -135,7 +135,7 @@ export function Navbar() {
               ))}
               <div className="pt-2 border-t border-sand-100">
                 <div className="inline-block rounded-lg bg-ocean-500/10">
-                  <LanguageSelector />
+                  <LanguageSelector className="text-ocean-700" />
                 </div>
               </div>
               <div className="flex gap-3 pt-2">
