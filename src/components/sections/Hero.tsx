@@ -10,7 +10,7 @@ export function Hero() {
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1920&q=80"
+          src="/hero-new.webp"
           alt="Kitesurf em Touros"
           className="w-full h-full object-cover object-center"
         />
