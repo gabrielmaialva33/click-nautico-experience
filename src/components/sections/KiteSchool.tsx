@@ -1,12 +1,33 @@
-import { motion } from 'framer-motion'
-import { COURSE_STAGES, LESSON_PRICES, SPECIAL_ACTIVITIES, RENTAL_PRICES, ACCESSORIES_FEE, WHATSAPP_LINK } from '@/constants'
-import { formatPrice } from '@/lib/utils'
+import { useBooking } from '../booking/BookingContext'
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
+// ... inside component ...
+export function KiteSchool() {
+  const { openBooking } = useBooking()
+
+  return (
+    // ...
+    <div className="pt-4 border-t border-sand-100 flex items-end justify-between">
+      <div>
+        <span className="text-xs text-sand-500 uppercase">
+          Valor
+        </span>
+        <div className="text-3xl font-bold text-ocean-600">
+          {formatPrice(lesson.price)}
+        </div>
+      </div>
+      <button
+        onClick={() => openBooking('kite', lesson.name)}
+        className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${lesson.isPopular
+          ? 'bg-ocean-500 text-white hover:bg-ocean-600'
+          : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
+          }`}
+      >
+        Reservar
+      </button>
+    </div>
+  )
+}
+transition: { staggerChildren: 0.1 },
   },
 }
 
@@ -104,11 +125,10 @@ export function KiteSchool() {
               <motion.div
                 key={lesson.id}
                 whileHover={{ y: -5 }}
-                className={`relative flex flex-col bg-white rounded-2xl p-6 border-2 transition-all ${
-                  lesson.isPopular
-                    ? 'border-ocean-500 shadow-xl shadow-ocean-500/10'
-                    : 'border-sand-100 hover:border-sand-200'
-                }`}
+                className={`relative flex flex-col bg-white rounded-2xl p-6 border-2 transition-all ${lesson.isPopular
+                  ? 'border-ocean-500 shadow-xl shadow-ocean-500/10'
+                  : 'border-sand-100 hover:border-sand-200'
+                  }`}
               >
                 {lesson.isPopular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-ocean-500 text-white text-xs font-bold px-4 py-1 rounded-full">
@@ -163,11 +183,10 @@ export function KiteSchool() {
                     href={WHATSAPP_LINK}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      lesson.isPopular
-                        ? 'bg-ocean-500 text-white hover:bg-ocean-600'
-                        : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${lesson.isPopular
+                      ? 'bg-ocean-500 text-white hover:bg-ocean-600'
+                      : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
+                      }`}
                   >
                     Reservar
                   </a>
