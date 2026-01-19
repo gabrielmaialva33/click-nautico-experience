@@ -11,6 +11,7 @@ export const en: Translations = {
   hero: {
     since: 'Vila Galé Touros • Since 2018',
     subtitle: 'Kite School & Tourist Tours',
+    subtitleHighlight: 'in the heart of the Potiguar coast',
     experience: 'Years of experience',
     students: 'Trained students',
     followers: 'Followers',

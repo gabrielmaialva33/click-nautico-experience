@@ -11,6 +11,7 @@ export const es: Translations = {
   hero: {
     since: 'Vila Galé Touros • Desde 2018',
     subtitle: 'Kite School & Tours Turísticos',
+    subtitleHighlight: 'en el corazón del litoral potiguar',
     experience: 'Años de experiencia',
     students: 'Alumnos formados',
     followers: 'Seguidores',

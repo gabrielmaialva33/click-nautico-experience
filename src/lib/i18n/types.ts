@@ -11,6 +11,7 @@ export interface Translations {
   hero: {
     since: string
     subtitle: string
+    subtitleHighlight: string
     experience: string
     students: string
     followers: string
