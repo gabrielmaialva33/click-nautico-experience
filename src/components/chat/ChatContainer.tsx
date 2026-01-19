@@ -23,7 +23,7 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
       transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-      className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-sand-950/95 md:bg-sand-950/60 backdrop-blur-xl md:absolute md:inset-auto md:bottom-24 md:right-0 md:h-[600px] md:w-[400px] md:rounded-3xl border-none md:border md:border-white/10 shadow-none md:shadow-2xl md:shadow-black/50"
+      className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-sand-950/95 md:bg-sand-950/60 backdrop-blur-xl md:inset-auto md:bottom-24 md:right-6 md:h-[600px] md:w-[400px] md:rounded-3xl border-none md:border md:border-white/10 shadow-none md:shadow-2xl md:shadow-black/50"
     >
       {/* Background Glow */}
       <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-b from-ocean-500/10 via-transparent to-transparent pointer-events-none" />
