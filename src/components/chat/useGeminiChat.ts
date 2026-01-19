@@ -7,6 +7,9 @@ import {
   type AIProvider,
   type NvidiaMessage,
 } from '@/lib/ai'
+import { AIOrchestrator } from '@/lib/ai-orchestrator'
+// Wait, AIOrchestrator is in './ai-orchestrator'.
+// I need new import line.
 import { useI18n } from '@/lib/i18n'
 import type { Message, ChatState } from './types'
 
@@ -77,8 +80,21 @@ export function useGeminiChat() {
     [locale]
   )
 
+  /* New State for UI feedback */
+  const [orchestrationStatus, setOrchestrationStatus] = useState<string | null>(null)
+
   const sendWithNvidia = useCallback(
     async (content: string, assistantMessageId: string) => {
+      const orchestrator = new AIOrchestrator(locale)
+
+      // 1. Determine Intent
+      setOrchestrationStatus('Analyzing intent...')
+      const intent = await orchestrator.classifyIntent(content, false) // attachments support pending
+
+      // 2. Select Model
+      const model = orchestrator.selectModel(intent)
+      setOrchestrationStatus(`Using ${model.split('/')[1]}...`) // Show "llama-3.3..."
+
       const messages: NvidiaMessage[] = [
         ...nvidiaHistoryRef.current,
         { role: 'user', content },
@@ -86,16 +102,27 @@ export function useGeminiChat() {
 
       let fullResponse = ''
 
-      for await (const chunk of streamNvidiaChat(messages, locale)) {
-        fullResponse += chunk
-        const displayText = stripThinkingTags(fullResponse)
+      try {
+        // 3. Stream with selected model
+        for await (const chunk of streamNvidiaChat(messages, locale, model)) {
+          fullResponse += chunk
+          const displayText = stripThinkingTags(fullResponse)
 
-        setState((prev) => ({
-          ...prev,
-          messages: prev.messages.map((msg) =>
-            msg.id === assistantMessageId ? { ...msg, content: displayText } : msg
-          ),
-        }))
+          setState((prev) => ({
+            ...prev,
+            messages: prev.messages.map((msg) =>
+              msg.id === assistantMessageId ? { ...msg, content: displayText } : msg
+            ),
+          }))
+
+          // Clear status once streaming starts
+          setOrchestrationStatus(null)
+        }
+      } catch (err) {
+        console.error("NVIDIA Stream Error", err)
+        throw err
+      } finally {
+        setOrchestrationStatus(null)
       }
 
       // Update NVIDIA history (without thinking tags)
@@ -155,8 +182,8 @@ export function useGeminiChat() {
             error: locale === 'pt'
               ? 'Ops! Algo deu errado. Tenta de novo?'
               : locale === 'es'
-              ? 'Algo salio mal. Intentas de nuevo?'
-              : 'Oops! Something went wrong. Try again?',
+                ? 'Algo salio mal. Intentas de nuevo?'
+                : 'Oops! Something went wrong. Try again?',
             messages: prev.messages.filter((m) => m.id !== assistantMessage.id),
           }))
         }
@@ -180,6 +207,7 @@ export function useGeminiChat() {
     isLoading: state.isLoading,
     error: state.error,
     provider,
+    orchestrationStatus,
     sendMessage,
     clearMessages,
   }

@@ -29,15 +29,21 @@ export default {
 
     try {
       const body = await request.json()
+      const { path = '/chat/completions', ...payload } = body as any
+
+      // Validate path (basic security)
+      if (!path.startsWith('/') || path.includes('..')) {
+        return new Response('Invalid path', { status: 400, headers: corsHeaders })
+      }
 
       // Forward to NVIDIA API
-      const response = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
+      const response = await fetch(`${NVIDIA_BASE_URL}${path}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${env.NVIDIA_API_KEY}`,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(payload),
       })
 
       // Check for errors

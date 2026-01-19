@@ -1,5 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import type { Locale } from './i18n'
+export type { Locale } from './i18n' // It was 'import type', now export it. Or just export from i18n directly?
+// The error said "Module './ai' declares 'Locale' locally".
+// Line 2 was: import type { Locale } from './i18n'
+// I should export it. `export type { Locale } from './i18n'`
 
 // ============================================
 // API Keys Configuration
@@ -33,25 +36,31 @@ export const NVIDIA_PROXY_URL = 'https://click-nautico-ai.gabrielmaialva33.worke
 // ============================================
 
 const CLICK_NAUTICO_INFO = `
-Click Náutico Information:
-- Kite surf school since 2018
-- Located at Vila Galé Resort, Touros-RN, Brazil
-- IKO certified instructors
-- Premium equipment from Duotone and North
+Click Náutico - @clicknautico.kiteschool
+- Escola de kitesurf desde 2018
+- 7.100+ seguidores no Instagram, 1.090+ posts
+- Vila Galé Resort, Touros-RN, Brasil
+- Instrutores certificados IKO
+- Equipamentos Duotone e North
+- Atende: Brasil, Argentina, Portugal
 
-Services:
-- Kite lessons (beginner to advanced)
-- Packages: Baptism (2h R$350), Basic (6h R$900), Complete (10h R$1,600)
-- Equipment rental
-- Boat tours to Maracajaú natural pools
-- Buggy tours through the dunes
+Serviços:
+- Aulas de kite (iniciante ao avançado)
+- Pacotes: Batismo (2h R$280-350), Básico (hora R$320), Completo (10h R$2.800)
+- Aluguel de equipamentos (kit completo R$270-500)
+- Passeio barco Maracajaú (piscinas naturais, 4-5h)
+- Buggy pelas dunas (3h)
+- Pôr do sol no rio (2h)
+- Transfer aeroporto/hotel
 
-Conditions:
-- Best season: August to January (strong, consistent winds)
-- Average wind: 15-25 knots
-- Warm water year-round
+Condições:
+- Melhor época: agosto a janeiro (vento forte e constante)
+- Vento médio: 15-25 nós
+- Água quente o ano todo
+- Downwind épico na região
 
-For bookings and specific questions, direct to WhatsApp.
+Endereço: Fazenda das Garças s/n, Vila Galé Touros, CEP 59584-000
+WhatsApp para reservas e dúvidas específicas.
 `
 
 export const SYSTEM_PROMPTS: Record<Locale, string> = {
@@ -124,7 +133,9 @@ export interface NvidiaMessage {
 
 export async function* streamNvidiaChat(
   messages: NvidiaMessage[],
-  locale: Locale
+  locale: Locale,
+  model: string = NVIDIA_MODEL,
+  endpoint: string = '/chat/completions'
 ): AsyncGenerator<string> {
   const systemMessage: NvidiaMessage = {
     role: 'system',
@@ -138,7 +149,8 @@ export async function* streamNvidiaChat(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: NVIDIA_MODEL,
+      path: endpoint, // New dynamic path
+      model: model,
       messages: [systemMessage, ...messages],
       temperature: 0.7,
       top_p: 0.95,

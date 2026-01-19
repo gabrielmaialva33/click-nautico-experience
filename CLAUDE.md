@@ -9,7 +9,7 @@ Landing page para Click Náutico Experience - escola de Kite Surf e passeios tur
 ## Tech Stack
 
 - **React 19** + **TypeScript** + **Vite 6**
-- **Tailwind CSS** via CDN (sem build step)
+- **Tailwind CSS 4** (@tailwindcss/vite)
 - SPA com navegação por tabs (sem routing library)
 
 ## Commands

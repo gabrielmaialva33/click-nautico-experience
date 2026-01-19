@@ -10,7 +10,7 @@ interface ChatContainerProps {
 
 export function ChatContainer({ onClose }: ChatContainerProps) {
   const { t } = useI18n()
-  const { messages, isLoading, error, provider, sendMessage, clearMessages } = useGeminiChat()
+  const { messages, isLoading, error, provider, orchestrationStatus, sendMessage, clearMessages } = useGeminiChat()
 
   return (
     <motion.div
@@ -68,6 +68,24 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
           className="mx-4 mt-2 rounded-lg bg-red-500/20 px-3 py-2 text-center text-sm text-red-300"
         >
           {error}
+        </motion.div>
+      )}
+
+      {/* Orchestration Status */}
+      {orchestrationStatus && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="border-b border-white/5 bg-cyan-950/50 px-4 py-1"
+        >
+          <div className="flex items-center gap-2 text-xs text-cyan-300">
+            <span className="flex h-2 w-2">
+              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500"></span>
+            </span>
+            <span className="animate-pulse">{orchestrationStatus}</span>
+          </div>
         </motion.div>
       )}
 
