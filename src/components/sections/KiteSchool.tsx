@@ -1,33 +1,10 @@
 import { useBooking } from '../booking/BookingContext'
 
-// ... inside component ...
-export function KiteSchool() {
-  const { openBooking } = useBooking()
-
-  return (
-    // ...
-    <div className="pt-4 border-t border-sand-100 flex items-end justify-between">
-      <div>
-        <span className="text-xs text-sand-500 uppercase">
-          Valor
-        </span>
-        <div className="text-3xl font-bold text-ocean-600">
-          {formatPrice(lesson.price)}
-        </div>
-      </div>
-      <button
-        onClick={() => openBooking('kite', lesson.name)}
-        className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${lesson.isPopular
-          ? 'bg-ocean-500 text-white hover:bg-ocean-600'
-          : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
-          }`}
-      >
-        Reservar
-      </button>
-    </div>
-  )
-}
-transition: { staggerChildren: 0.1 },
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
   },
 }
 
@@ -37,6 +14,8 @@ const item = {
 }
 
 export function KiteSchool() {
+  const { openBooking } = useBooking()
+
   return (
     <section id="kite" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -179,17 +158,15 @@ export function KiteSchool() {
                       {formatPrice(lesson.price)}
                     </div>
                   </div>
-                  <a
-                    href={WHATSAPP_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => openBooking('kite', lesson.name)}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${lesson.isPopular
                       ? 'bg-ocean-500 text-white hover:bg-ocean-600'
                       : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
                       }`}
                   >
                     Reservar
-                  </a>
+                  </button>
                 </div>
               </motion.div>
             ))}
