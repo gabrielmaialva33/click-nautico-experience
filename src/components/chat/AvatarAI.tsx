@@ -82,24 +82,13 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         {/* Background */}
         <circle cx="50" cy="50" r="48" fill={`url(#${oceanGradId})`} />
 
-        {/* Wave pattern (só anima se não preferir reduced motion) */}
-        {prefersReducedMotion ? (
-          <path
-            d="M10 65 Q25 60 40 65 T70 65 T100 65"
-            fill="none"
-            stroke="rgba(255,255,255,0.2)"
-            strokeWidth="3"
-          />
-        ) : (
-          <motion.path
-            d="M10 65 Q25 60 40 65 T70 65 T100 65"
-            fill="none"
-            stroke="rgba(255,255,255,0.2)"
-            strokeWidth="3"
-            animate={{ d: ['M10 65 Q25 60 40 65 T70 65 T100 65', 'M10 65 Q25 70 40 65 T70 65 T100 65'] }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
-          />
-        )}
+        {/* Wave pattern - estático pra evitar bugs do Framer Motion com path d */}
+        <path
+          d="M10 65 Q25 62 40 65 T70 65 T100 65"
+          fill="none"
+          stroke="rgba(255,255,255,0.2)"
+          strokeWidth="3"
+        />
 
         {/* Face */}
         <ellipse cx="50" cy="52" rx="28" ry="30" fill={`url(#${skinGradId})`} />
@@ -115,31 +104,8 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         <path d="M60 26 Q62 19 68 22" fill="none" stroke="#5c4033" strokeWidth="3" strokeLinecap="round" />
 
         {/* Eyebrows */}
-        {prefersReducedMotion ? (
-          <>
-            <path d="M33 42 Q38 40 43 42" fill="none" stroke="#5c4033" strokeWidth="2" strokeLinecap="round" />
-            <path d="M57 42 Q62 40 67 42" fill="none" stroke="#5c4033" strokeWidth="2" strokeLinecap="round" />
-          </>
-        ) : (
-          <>
-            <motion.path
-              d="M33 42 Q38 40 43 42"
-              fill="none"
-              stroke="#5c4033"
-              strokeWidth="2"
-              strokeLinecap="round"
-              animate={isThinking ? { d: 'M33 40 Q38 38 43 40' } : {}}
-            />
-            <motion.path
-              d="M57 42 Q62 40 67 42"
-              fill="none"
-              stroke="#5c4033"
-              strokeWidth="2"
-              strokeLinecap="round"
-              animate={isThinking ? { d: 'M57 40 Q62 38 67 40' } : {}}
-            />
-          </>
-        )}
+        <path d="M33 42 Q38 40 43 42" fill="none" stroke="#5c4033" strokeWidth="2" strokeLinecap="round" />
+        <path d="M57 42 Q62 40 67 42" fill="none" stroke="#5c4033" strokeWidth="2" strokeLinecap="round" />
 
         {/* Eyes */}
         <g>
@@ -180,18 +146,7 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         <path d="M50 54 L48 60 L52 60" fill="none" stroke="#e0a882" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 
         {/* Smile */}
-        {prefersReducedMotion ? (
-          <path d="M40 67 Q50 75 60 67" fill="none" stroke="#c47c5a" strokeWidth="2.5" strokeLinecap="round" />
-        ) : (
-          <motion.path
-            d="M40 67 Q50 75 60 67"
-            fill="none"
-            stroke="#c47c5a"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            animate={isThinking ? { d: 'M42 68 Q50 72 58 68' } : {}}
-          />
-        )}
+        <path d="M40 67 Q50 75 60 67" fill="none" stroke="#c47c5a" strokeWidth="2.5" strokeLinecap="round" />
 
         {/* Teeth showing in smile */}
         <path d="M43 68 Q50 72 57 68" fill="white" opacity="0.9" />
