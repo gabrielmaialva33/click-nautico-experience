@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { useI18n } from '@/lib/i18n'
 import { INSTAGRAM_LINK, WHATSAPP_LINK } from '@/constants'
+import { LanguageSelector } from './LanguageSelector'
 
 export function Navbar() {
+  const { t } = useI18n()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -16,10 +19,10 @@ export function Navbar() {
   }, [])
 
   const navItems = [
-    { label: 'Início', href: '#home' },
-    { label: 'Kite School', href: '#kite' },
-    { label: 'Passeios', href: '#tours' },
-    { label: 'Contato', href: '#contact' },
+    { label: t.nav.home, href: '#home' },
+    { label: t.nav.kiteSchool, href: '#kite' },
+    { label: t.nav.tours, href: '#tours' },
+    { label: t.nav.contact, href: '#contact' },
   ]
 
   return (
@@ -48,7 +51,7 @@ export function Navbar() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -61,13 +64,19 @@ export function Navbar() {
                 {item.label}
               </a>
             ))}
+            <div className={cn(
+              'rounded-lg',
+              isScrolled ? 'bg-ocean-500/10' : 'bg-white/10'
+            )}>
+              <LanguageSelector />
+            </div>
             <a
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-ocean-500 hover:bg-ocean-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105 active:scale-95"
             >
-              Agendar Aula
+              {t.nav.bookClass}
             </a>
           </div>
 
@@ -124,7 +133,12 @@ export function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <div className="flex gap-3 pt-4">
+              <div className="pt-2 border-t border-sand-100">
+                <div className="inline-block rounded-lg bg-ocean-500/10">
+                  <LanguageSelector />
+                </div>
+              </div>
+              <div className="flex gap-3 pt-2">
                 <a
                   href={INSTAGRAM_LINK}
                   target="_blank"

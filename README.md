@@ -14,6 +14,7 @@
 <p align="center">
   <a href="#bookmark-sobre">Sobre</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#surfing_man-funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#robot-chat-ia">Chat IA</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#computer-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#package-instalação">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-deploy">Deploy</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -49,6 +50,66 @@ Este projeto apresenta uma landing page focada em conversão, projetada para max
 - **:sparkles: Animações Suaves** - Micro-interações com Framer Motion
 - **:speech_balloon: Integração WhatsApp** - Botão CTA flutuante para contato instantâneo
 - **:zap: Alta Performance** - Lighthouse score 95+ com code splitting
+- **:robot: Chat IA Inteligente** - Assistente virtual com personalidade casual brasileira
+- **:globe_with_meridians: Multi-idioma** - Suporte a PT, EN e ES (automático + manual)
+
+## :robot: Chat IA
+
+O site conta com um assistente virtual inteligente que utiliza IA generativa para responder dúvidas sobre a escola, pacotes, condições de vento e muito mais.
+
+### Características
+
+- **Streaming em tempo real** - Respostas aparecem gradualmente
+- **Fallback automático** - Google Gemini → NVIDIA NIM
+- **Personalidade casual** - Fala como brasileiro (gírias, "mano", "massa")
+- **Multi-idioma** - Responde no idioma do usuário
+- **Load balancing** - Rotação entre múltiplas API keys NVIDIA
+
+### Providers
+
+| Provider | Modelo | Uso |
+|----------|--------|-----|
+| Google AI | Gemini 2.0 Flash | Primário |
+| NVIDIA NIM | Llama 3.3 Nemotron 49B | Fallback |
+
+### Configuração das API Keys
+
+Configure via **GitHub Secrets** para o deploy:
+
+```bash
+VITE_GOOGLE_API_KEY=sua_chave_google
+VITE_NVIDIA_API_KEY_1=chave_nvidia_1
+VITE_NVIDIA_API_KEY_2=chave_nvidia_2
+VITE_NVIDIA_API_KEY_3=chave_nvidia_3
+VITE_NVIDIA_API_KEY_4=chave_nvidia_4
+```
+
+Para desenvolvimento local, crie um arquivo `.env.local`:
+
+```bash
+VITE_GOOGLE_API_KEY=sua_chave_google
+VITE_NVIDIA_API_KEY_1=chave_nvidia_1
+# ... outras chaves
+```
+
+## :globe_with_meridians: Sistema i18n
+
+O site detecta automaticamente o idioma do navegador e permite troca manual.
+
+### Idiomas Suportados
+
+| Código | Idioma | Detecção |
+|--------|--------|----------|
+| `pt` | Português (BR) | `pt`, `pt-BR` |
+| `en` | English | `en`, `en-US`, `en-GB` |
+| `es` | Español | `es`, `es-ES`, `es-MX` |
+
+### Detecção de Idioma
+
+1. **localStorage** - Preferência salva do usuário
+2. **URL Query** - `?lang=en` força o idioma
+3. **Navigator** - Idioma do navegador
+4. **Fallback** - Português (BR)
 
 ## :computer: Tecnologias
 
@@ -59,6 +120,7 @@ Este projeto apresenta uma landing page focada em conversão, projetada para max
 | [Vite](https://vitejs.dev/) | 6.0 | Build Tool |
 | [Tailwind CSS](https://tailwindcss.com/) | 4.0 | Framework de Estilos |
 | [Framer Motion](https://www.framer.com/motion/) | 11.x | Animações |
+| [Google Generative AI](https://ai.google.dev/) | 0.21 | Chat IA (Gemini) |
 
 ## :package: Instalação
 
@@ -71,6 +133,10 @@ $ cd click-nautico-experience
 
 # Instale as dependências
 $ npm install
+
+# Configure as variáveis de ambiente
+$ cp .env.example .env.local
+# Edite .env.local com suas API keys
 
 # Inicie o servidor de desenvolvimento
 $ npm run dev
@@ -87,6 +153,13 @@ Cada push na branch `main` dispara o workflow:
 2. Build para produção
 3. Deploy no GitHub Pages
 
+### Configurar Secrets no GitHub
+
+1. Vá em **Settings** → **Secrets and variables** → **Actions**
+2. Adicione os secrets:
+   - `VITE_GOOGLE_API_KEY`
+   - `VITE_NVIDIA_API_KEY_1` (até `_4`)
+
 ### Habilitar GitHub Pages
 
 1. Vá em **Settings** → **Pages**
@@ -101,11 +174,26 @@ Cada push na branch `main` dispara o workflow:
 src/
 ├── components/
 │   ├── sections/       # Hero, KiteSchool, Tours, Footer
-│   └── ui/             # Navbar, FloatingWhatsApp
+│   ├── ui/             # Navbar, FloatingWhatsApp, LanguageSelector
+│   └── chat/           # Chat IA com streaming
+│       ├── ChatWidget.tsx      # Widget flutuante
+│       ├── ChatContainer.tsx   # Container do chat
+│       ├── MessageList.tsx     # Lista de mensagens
+│       ├── MessageBubble.tsx   # Bolha de mensagem
+│       ├── ChatInput.tsx       # Input com envio
+│       ├── TypingIndicator.tsx # Indicador "digitando..."
+│       └── useGeminiChat.ts    # Hook com fallback Google/NVIDIA
+├── lib/
+│   ├── ai.ts           # Config dos providers de IA
+│   └── i18n/           # Sistema de internacionalização
+│       ├── context.tsx # Provider com auto-detecção
+│       ├── pt.ts       # Traduções Português
+│       ├── en.ts       # Traduções Inglês
+│       └── es.ts       # Traduções Espanhol
 ├── constants/          # Dados do negócio & configuração
 ├── styles/             # CSS global & design tokens
 ├── App.tsx             # Componente principal
-└── main.tsx            # Ponto de entrada
+└── main.tsx            # Ponto de entrada com I18nProvider
 ```
 
 ## :memo: Licença

@@ -1,0 +1,8 @@
+export { ChatWidget } from './ChatWidget'
+export { ChatContainer } from './ChatContainer'
+export { MessageBubble } from './MessageBubble'
+export { MessageList } from './MessageList'
+export { ChatInput } from './ChatInput'
+export { TypingIndicator } from './TypingIndicator'
+export { useGeminiChat } from './useGeminiChat'
+export type { Message, ChatState } from './types'

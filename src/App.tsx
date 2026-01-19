@@ -4,6 +4,7 @@ import { Tours } from './components/sections/Tours'
 import { Footer } from './components/sections/Footer'
 import { FloatingWhatsApp } from './components/ui/FloatingWhatsApp'
 import { Navbar } from './components/ui/Navbar'
+import { ChatWidget } from './components/chat'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       </main>
       <Footer />
       <FloatingWhatsApp />
+      <ChatWidget />
     </div>
   )
 }
