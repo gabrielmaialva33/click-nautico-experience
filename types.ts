@@ -4,6 +4,7 @@ export interface LessonPrice {
   price: number;
   details?: string;
   isPopular?: boolean;
+  highlight?: string; // For things like "Inclui fotos"
 }
 
 export interface RentalPrice {
@@ -21,6 +22,13 @@ export interface TourItem {
   price: number | string;
   duration?: string;
   image: string;
+}
+
+export interface CourseStage {
+  step: number;
+  title: string;
+  description: string;
+  imageKeyword: string;
 }
 
 export enum TabView {
