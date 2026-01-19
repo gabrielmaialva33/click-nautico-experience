@@ -22,29 +22,32 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
     { icon: Calendar, text: t.chat.quickReplies.availability },
   ]
   const containerRef = useRef<HTMLDivElement>(null)
-  const prevMessageCount = useRef(0)
 
-  // Scroll suave apenas quando houver novas mensagens
+  // Scroll direto no container
   const scrollToBottom = useCallback(() => {
-    if (!containerRef.current) return
+    const container = containerRef.current
+    if (!container) return
+
     requestAnimationFrame(() => {
-      containerRef.current?.scrollTo({
-        top: containerRef.current.scrollHeight,
-        behavior: 'smooth'
-      })
+      container.scrollTop = container.scrollHeight
     })
   }, [])
 
+  // Scroll quando novas mensagens chegam
   useEffect(() => {
-    // Só faz scroll se mensagens aumentaram
-    if (messages.length > prevMessageCount.current) {
-      // Delay para aguardar animação de entrada
-      const timer = setTimeout(scrollToBottom, 150)
-      prevMessageCount.current = messages.length
+    if (messages.length > 0) {
+      const timer = setTimeout(scrollToBottom, 100)
       return () => clearTimeout(timer)
     }
-    prevMessageCount.current = messages.length
   }, [messages.length, scrollToBottom])
+
+  // Scroll durante streaming (última mensagem crescendo)
+  const lastMessage = messages[messages.length - 1]
+  useEffect(() => {
+    if (lastMessage?.role === 'assistant') {
+      scrollToBottom()
+    }
+  }, [lastMessage?.content, scrollToBottom])
 
   if (messages.length === 0) {
     return (
@@ -142,6 +145,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
           </div>
         </m.div>
       )}
+
     </div>
   )
 }
