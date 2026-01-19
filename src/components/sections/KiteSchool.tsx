@@ -1,4 +1,14 @@
+import { motion } from 'framer-motion'
 import { useBooking } from '../booking/BookingContext'
+import {
+  COURSE_STAGES,
+  LESSON_PRICES,
+  SPECIAL_ACTIVITIES,
+  RENTAL_PRICES,
+  ACCESSORIES_FEE
+} from '@/constants'
+import { formatPrice, cn, resolveTranslation } from '@/lib/utils'
+import { useI18n } from '@/lib/i18n'
 
 const container = {
   hidden: { opacity: 0 },
@@ -15,6 +25,9 @@ const item = {
 
 export function KiteSchool() {
   const { openBooking } = useBooking()
+  const { t } = useI18n()
+
+  const tr = (key: string) => resolveTranslation(t, key)
 
   return (
     <section id="kite" className="py-20 md:py-32 bg-white">
@@ -27,15 +40,13 @@ export function KiteSchool() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="inline-block text-ocean-600 font-semibold text-sm uppercase tracking-wider mb-4">
-            Kite School
+            {t.kite.badge}
           </span>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-sand-900 mb-6">
-            Aprenda a voar{' '}
-            <span className="text-gradient-ocean">sobre as águas</span>
+            {t.kite.title}
           </h2>
           <p className="text-lg text-sand-600 leading-relaxed">
-            Metodologia comprovada com instrutores certificados. Do zero ao velejo
-            independente em um curso completo e seguro.
+            {t.kite.description}
           </p>
         </motion.div>
 
@@ -67,10 +78,10 @@ export function KiteSchool() {
                 </div>
 
                 <h3 className="text-xl font-bold text-sand-900 mb-3">
-                  {stage.title}
+                  {stage.titleKey ? tr(stage.titleKey) : stage.title}
                 </h3>
                 <p className="text-sand-600 leading-relaxed">
-                  {stage.description}
+                  {stage.descKey ? tr(stage.descKey) : stage.description}
                 </p>
               </div>
             </motion.div>
@@ -87,15 +98,15 @@ export function KiteSchool() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
             <div>
               <h3 className="text-3xl font-display font-bold text-sand-900 mb-2">
-                Investimento
+                {t.kite.investment}
               </h3>
               <p className="text-sand-600">
-                Escolha o pacote ideal para sua evolução
+                {t.kite.investmentDesc}
               </p>
             </div>
             <div className="mt-4 md:mt-0 inline-flex items-center gap-2 text-sm font-medium text-coral-600 bg-coral-50 px-4 py-2 rounded-full">
               <span className="w-2 h-2 rounded-full bg-coral-500 animate-pulse" />
-              Mínimo de 2 horas por aula
+              {t.kite.minHours}
             </div>
           </div>
 
@@ -104,30 +115,32 @@ export function KiteSchool() {
               <motion.div
                 key={lesson.id}
                 whileHover={{ y: -5 }}
-                className={`relative flex flex-col bg-white rounded-2xl p-6 border-2 transition-all ${lesson.isPopular
-                  ? 'border-ocean-500 shadow-xl shadow-ocean-500/10'
-                  : 'border-sand-100 hover:border-sand-200'
-                  }`}
+                className={cn(
+                  "relative flex flex-col bg-white rounded-2xl p-6 border-2 transition-all",
+                  lesson.isPopular
+                    ? 'border-ocean-500 shadow-xl shadow-ocean-500/10'
+                    : 'border-sand-100 hover:border-sand-200'
+                )}
               >
                 {lesson.isPopular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-ocean-500 text-white text-xs font-bold px-4 py-1 rounded-full">
-                    Recomendado
+                    {t.kite.recommended}
                   </div>
                 )}
 
                 <div className="mb-4">
                   <h4 className="text-lg font-bold text-sand-900">
-                    {lesson.name}
+                    {lesson.nameKey ? tr(lesson.nameKey) : lesson.name}
                   </h4>
-                  {lesson.subtitle && (
+                  {(lesson.subtitleKey || lesson.subtitle) && (
                     <span className="text-sm text-sand-500">
-                      {lesson.subtitle}
+                      {lesson.subtitleKey ? tr(lesson.subtitleKey) : lesson.subtitle}
                     </span>
                   )}
                 </div>
 
                 <p className="text-sand-600 text-sm mb-4 flex-grow">
-                  {lesson.description}
+                  {lesson.descKey ? tr(lesson.descKey) : lesson.description}
                 </p>
 
                 {lesson.highlight && (
@@ -145,27 +158,29 @@ export function KiteSchool() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    {lesson.highlight}
+                    {t.kite.includes}
                   </div>
                 )}
 
                 <div className="pt-4 border-t border-sand-100 flex items-end justify-between">
                   <div>
                     <span className="text-xs text-sand-500 uppercase">
-                      Valor
+                      {t.kite.value}
                     </span>
                     <div className="text-3xl font-bold text-ocean-600">
                       {formatPrice(lesson.price)}
                     </div>
                   </div>
                   <button
-                    onClick={() => openBooking('kite', lesson.name)}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${lesson.isPopular
-                      ? 'bg-ocean-500 text-white hover:bg-ocean-600'
-                      : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
-                      }`}
+                    onClick={() => openBooking('kite', lesson.nameKey ? tr(lesson.nameKey) : lesson.name)}
+                    className={cn(
+                      "px-4 py-2 rounded-lg text-sm font-semibold transition-colors",
+                      lesson.isPopular
+                        ? 'bg-ocean-500 text-white hover:bg-ocean-600'
+                        : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
+                    )}
                   >
-                    Reservar
+                    {t.kite.reserve}
                   </button>
                 </div>
               </motion.div>
@@ -186,10 +201,10 @@ export function KiteSchool() {
 
           <div className="relative z-10">
             <h3 className="text-2xl md:text-3xl font-display font-bold text-white text-center mb-2">
-              Experiências Especiais
+              {t.kite.specialExperiences}
             </h3>
             <p className="text-sand-400 text-center mb-10">
-              Vivências exclusivas para quem busca algo a mais
+              {t.kite.specialDesc}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -200,14 +215,14 @@ export function KiteSchool() {
                 >
                   <div className="text-center sm:text-left">
                     <h4 className="text-lg font-bold text-white">
-                      {activity.name}
+                      {activity.nameKey ? tr(activity.nameKey) : activity.name}
                     </h4>
                     <p className="text-sm text-sand-300 mt-1">
-                      {activity.subtitle}
+                      {activity.subtitleKey ? tr(activity.subtitleKey) : activity.subtitle}
                     </p>
                   </div>
                   <div className="text-center sm:text-right">
-                    <span className="text-xs text-sand-400">Por pessoa</span>
+                    <span className="text-xs text-sand-400">{t.kite.perPerson}</span>
                     <div className="text-2xl font-bold text-ocean-400">
                       {formatPrice(activity.price)}
                     </div>
@@ -225,7 +240,7 @@ export function KiteSchool() {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl font-display font-bold text-sand-900 mb-6 pl-4 border-l-4 border-sand-900">
-            Aluguel de Equipamentos
+            {t.kite.rentalTitle}
           </h3>
 
           <div className="bg-white rounded-2xl shadow-sm border border-sand-100 overflow-hidden">
@@ -233,15 +248,15 @@ export function KiteSchool() {
               <table className="w-full text-left">
                 <thead className="bg-sand-50 text-sand-600 uppercase text-xs tracking-wider">
                   <tr>
-                    <th className="px-6 py-4 font-semibold">Item</th>
+                    <th className="px-6 py-4 font-semibold">{t.kite.item}</th>
                     <th className="px-6 py-4 font-semibold text-center">
-                      1 Hora
+                      1 {t.kite.hour}
                     </th>
                     <th className="px-6 py-4 font-semibold text-center">
-                      2 Horas
+                      2 {t.kite.hours}
                     </th>
                     <th className="px-6 py-4 font-semibold text-center bg-ocean-50 text-ocean-700">
-                      Diária
+                      {t.kite.daily}
                     </th>
                   </tr>
                 </thead>
@@ -250,11 +265,11 @@ export function KiteSchool() {
                     <tr key={rental.id} className="hover:bg-sand-50/50">
                       <td className="px-6 py-4">
                         <div className="font-semibold text-sand-900">
-                          {rental.item}
+                          {rental.itemKey ? tr(rental.itemKey) : rental.item}
                         </div>
-                        {rental.description && (
+                        {(rental.descKey || rental.description) && (
                           <div className="text-xs text-sand-500">
-                            {rental.description}
+                            {rental.descKey ? tr(rental.descKey) : rental.description}
                           </div>
                         )}
                       </td>
@@ -272,10 +287,10 @@ export function KiteSchool() {
                   <tr className="bg-coral-50/50">
                     <td className="px-6 py-4">
                       <div className="font-semibold text-coral-900">
-                        Acessórios
+                        {t.kite.accessories}
                       </div>
                       <div className="text-xs text-coral-600">
-                        Capacete, Colete, Trapézio
+                        {t.kite.accessoriesList}
                       </div>
                     </td>
                     <td
@@ -284,7 +299,7 @@ export function KiteSchool() {
                     >
                       {formatPrice(ACCESSORIES_FEE)}{' '}
                       <span className="text-xs font-normal opacity-70">
-                        taxa única
+                        {t.kite.oneTimeFee}
                       </span>
                     </td>
                   </tr>
@@ -293,9 +308,10 @@ export function KiteSchool() {
             </div>
           </div>
           <p className="mt-3 text-xs text-sand-400 text-right italic">
-            * Equipamentos sujeitos a disponibilidade e avaliação técnica
+            {t.kite.note}
           </p>
         </motion.div>
+
       </div>
     </section>
   )
