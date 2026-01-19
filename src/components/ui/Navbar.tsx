@@ -74,7 +74,7 @@ export function Navbar() {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-ocean-500 hover:bg-ocean-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105 active:scale-95"
+              className="bg-ocean-700 hover:bg-ocean-800 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105 active:scale-95"
             >
               {t.nav.bookClass}
             </a>
