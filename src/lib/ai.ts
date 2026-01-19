@@ -18,10 +18,15 @@ const NVIDIA_API_KEYS = [
 
 let currentNvidiaKeyIndex = 0
 
-function getNextNvidiaKey(): string {
+function getNextNvidiaKey(): string | null {
+  if (NVIDIA_API_KEYS.length === 0) return null
   const key = NVIDIA_API_KEYS[currentNvidiaKeyIndex]
   currentNvidiaKeyIndex = (currentNvidiaKeyIndex + 1) % NVIDIA_API_KEYS.length
   return key
+}
+
+export function hasNvidiaFallback(): boolean {
+  return NVIDIA_API_KEYS.length > 0
 }
 
 // ============================================
@@ -119,6 +124,10 @@ export async function* streamNvidiaChat(
   locale: Locale
 ): AsyncGenerator<string> {
   const apiKey = getNextNvidiaKey()
+
+  if (!apiKey) {
+    throw new Error('No NVIDIA API key configured')
+  }
 
   const systemMessage: NvidiaMessage = {
     role: 'system',

@@ -28,6 +28,7 @@ test.describe('Accessibility', () => {
     await reserveBtn.click();
 
     await expect(page.getByRole('dialog')).toBeVisible();
+    await page.waitForTimeout(1000); // Wait for modal animation (opacity/scale)
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .include('[role="dialog"]')

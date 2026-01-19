@@ -11,23 +11,34 @@ export function Tours() {
   const tr = (key: string) => resolveTranslation(t, key)
 
   return (
-    <section id="tours" className="py-20 md:py-32 bg-sand-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+    <section id="tours" className="py-20 md:py-32 bg-gray-900 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute top-[-20%] left-[-10%] w-[1000px] h-[1000px] bg-ocean-500/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[1000px] h-[1000px] bg-coral-500/10 rounded-full blur-[120px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header - Epic Scale */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-4xl mx-auto mb-20"
         >
-          <span className="inline-block text-coral-600 font-semibold text-sm uppercase tracking-wider mb-4">
-            {t.tours.badge}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-sand-900 mb-6">
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 mb-8 backdrop-blur-sm">
+            <span className="w-2 h-2 bg-coral-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(244,63,94,0.5)]" />
+            <span className="text-white/90 text-sm font-bold tracking-wide uppercase">
+              {t.tours.badge}
+            </span>
+          </div>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-display font-black text-white mb-8 tracking-tight leading-none">
             {t.tours.title.split(' ').slice(0, 2).join(' ')}{' '}
-            <span className="text-gradient-sunset">{t.tours.title.split(' ').slice(2).join(' ')}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-orange-400">
+              {t.tours.title.split(' ').slice(2).join(' ')}
+            </span>
           </h2>
-          <p className="text-lg text-sand-600 leading-relaxed">
+          <p className="text-xl sm:text-2xl text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
             {t.tours.description}
           </p>
         </motion.div>
@@ -41,10 +52,10 @@ export function Tours() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
+              className="group relative bg-gray-800 rounded-[2rem] overflow-hidden shadow-2xl hover:shadow-coral-500/20 transition-all duration-500 border border-gray-700 hover:border-coral-500/50 hover:-translate-y-2 h-full flex flex-col"
             >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
+              {/* Image - Cinematic Aspect */}
+              <div className="relative h-80 overflow-hidden">
                 <img
                   src={`https://images.unsplash.com/${tour.id === 'maracajau'
                     ? 'photo-1544551763-46a013bb70d5'
@@ -53,21 +64,21 @@ export function Tours() {
                       : 'photo-1502933691298-84fc14542831'
                     }?w=800&q=80`}
                   alt={tour.titleKey ? tr(tour.titleKey) : tour.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 saturate-100 group-hover:saturate-125"
                 />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-sand-900/90 via-sand-900/20 to-transparent" />
+                {/* Cinematic Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-90" />
 
-                {/* Duration badge */}
+                {/* Duration badge - Tech Pill */}
                 {(tour.durationKey || tour.duration) && (
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider">
                     {tour.durationKey ? tr(tour.durationKey) : tour.duration}
                   </div>
                 )}
 
-                {/* Title overlay */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-2xl font-display font-bold text-white mb-2">
+                {/* Title overlay - Bottom Left */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-3xl font-display font-black text-white mb-3 drop-shadow-lg">
                     {tour.titleKey ? tr(tour.titleKey) : tour.title}
                   </h3>
                   {tour.highlights && (
@@ -75,7 +86,7 @@ export function Tours() {
                       {tour.highlights.map((highlight, i) => (
                         <span
                           key={highlight}
-                          className="bg-coral-500/80 text-white text-xs px-2 py-1 rounded"
+                          className="bg-coral-500 text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wide shadow-lg"
                         >
                           {tour.highlightsKeys?.[i] ? tr(tour.highlightsKeys[i]) : highlight}
                         </span>
@@ -85,15 +96,15 @@ export function Tours() {
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-sand-600 text-sm leading-relaxed mb-6">
+              {/* Content - Dark Mode */}
+              <div className="p-8 flex flex-col flex-grow">
+                <p className="text-gray-400 text-base leading-relaxed mb-8 flex-grow">
                   {tour.descKey ? tr(tour.descKey) : tour.description}
                 </p>
 
                 <button
                   onClick={() => openBooking('tour', tour.titleKey ? tr(tour.titleKey) : tour.title)}
-                  className="block w-full text-center bg-sand-100 hover:bg-coral-500 text-sand-700 hover:text-white py-3 rounded-xl font-semibold transition-all duration-300"
+                  className="block w-full text-center bg-white text-gray-900 hover:bg-coral-500 hover:text-white py-4 rounded-xl font-black text-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {t.tours.checkAvailability}
                 </button>

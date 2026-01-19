@@ -56,7 +56,7 @@ export function ChatWidget() {
         {!isOpen && (
           <>
             <span className="absolute inset-0 animate-ping rounded-full bg-cyan-500 opacity-25" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white">
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-black shadow-sm">
               AI
             </span>
           </>

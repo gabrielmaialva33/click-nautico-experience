@@ -32,31 +32,34 @@ export function KiteSchool() {
   return (
     <section id="kite" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Section Header - Epic Scale */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-4xl mx-auto mb-20"
         >
-          <span className="inline-block text-ocean-600 font-semibold text-sm uppercase tracking-wider mb-4">
-            {t.kite.badge}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-sand-900 mb-6">
+          <div className="inline-flex items-center gap-2 bg-ocean-50 border border-ocean-100 rounded-full px-5 py-2 mb-8">
+            <span className="w-2 h-2 bg-ocean-500 rounded-full animate-pulse" />
+            <span className="text-ocean-700 text-sm font-bold tracking-wide uppercase">
+              {t.kite.badge}
+            </span>
+          </div>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-display font-black text-sand-900 mb-8 tracking-tight leading-none">
             {t.kite.title}
           </h2>
-          <p className="text-lg text-sand-600 leading-relaxed">
+          <p className="text-xl sm:text-2xl text-sand-600 leading-relaxed font-light max-w-2xl mx-auto">
             {t.kite.description}
           </p>
         </motion.div>
 
-        {/* Course Stages */}
+        {/* Course Stages - Tech Cards */}
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24"
         >
           {COURSE_STAGES.map((stage, index) => (
             <motion.div
@@ -64,23 +67,23 @@ export function KiteSchool() {
               variants={item}
               className="relative group"
             >
-              {/* Connector line */}
+              {/* Connector line - Tech Style */}
               {index < COURSE_STAGES.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-ocean-200 to-transparent z-0" />
+                <div className="hidden md:block absolute top-16 left-full w-full h-[2px] bg-sand-200 z-0 group-hover:bg-ocean-300 transition-colors" />
               )}
 
-              <div className="relative bg-sand-50 rounded-2xl p-8 border border-sand-100 hover:border-ocean-200 transition-colors h-full">
-                {/* Step number */}
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-ocean-500 to-ocean-600 flex items-center justify-center mb-6 shadow-lg shadow-ocean-500/20 group-hover:scale-110 transition-transform">
-                  <span className="text-2xl font-bold text-white">
+              <div className="relative bg-white rounded-[2rem] p-8 border-2 border-sand-100 hover:border-ocean-500 transition-all duration-300 h-full shadow-lg hover:shadow-2xl hover:-translate-y-2">
+                {/* Step number - Floating Badge */}
+                <div className="w-20 h-20 rounded-2xl bg-sand-900 flex items-center justify-center mb-8 shadow-xl group-hover:bg-ocean-600 transition-colors">
+                  <span className="text-3xl font-black text-white">
                     {stage.step}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-sand-900 mb-3">
+                <h3 className="text-2xl font-bold text-sand-900 mb-4 group-hover:text-ocean-600 transition-colors">
                   {stage.titleKey ? tr(stage.titleKey) : stage.title}
                 </h3>
-                <p className="text-sand-600 leading-relaxed">
+                <p className="text-lg text-sand-600 leading-relaxed">
                   {stage.descKey ? tr(stage.descKey) : stage.description}
                 </p>
               </div>
@@ -110,36 +113,36 @@ export function KiteSchool() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {LESSON_PRICES.map((lesson) => (
               <motion.div
                 key={lesson.id}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -8 }}
                 className={cn(
-                  "relative flex flex-col bg-white rounded-2xl p-6 border-2 transition-all",
+                  "relative flex flex-col bg-white rounded-[2rem] p-8 border-2 transition-all duration-300",
                   lesson.isPopular
-                    ? 'border-ocean-500 shadow-xl shadow-ocean-500/10'
-                    : 'border-sand-100 hover:border-sand-200'
+                    ? 'border-ocean-500 shadow-2xl scale-105 z-10'
+                    : 'border-sand-200 hover:border-sand-400 grayscale hover:grayscale-0'
                 )}
               >
                 {lesson.isPopular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-ocean-500 text-white text-xs font-bold px-4 py-1 rounded-full">
+                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-ocean-600 text-white text-sm font-bold px-6 py-2 rounded-full shadow-lg uppercase tracking-wide">
                     {t.kite.recommended}
                   </div>
                 )}
 
-                <div className="mb-4">
-                  <h4 className="text-lg font-bold text-sand-900">
+                <div className="mb-6">
+                  <h4 className="text-2xl font-black text-sand-900 mb-1">
                     {lesson.nameKey ? tr(lesson.nameKey) : lesson.name}
                   </h4>
                   {(lesson.subtitleKey || lesson.subtitle) && (
-                    <span className="text-sm text-sand-500">
+                    <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wider">
                       {lesson.subtitleKey ? tr(lesson.subtitleKey) : lesson.subtitle}
                     </span>
                   )}
                 </div>
 
-                <p className="text-sand-600 text-sm mb-4 flex-grow">
+                <p className="text-sand-600 text-base mb-6 flex-grow leading-relaxed">
                   {lesson.descKey ? tr(lesson.descKey) : lesson.description}
                 </p>
 
