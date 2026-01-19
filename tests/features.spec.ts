@@ -28,6 +28,7 @@ test.describe('Features Sections', () => {
 
   test('Tours section should display tour options', async ({ page }) => {
     const section = page.locator('#tours');
+    await section.waitFor({ state: 'attached' });
     await section.scrollIntoViewIfNeeded();
     await page.evaluate(() => window.scrollBy(0, 100));
     await page.waitForTimeout(1000);

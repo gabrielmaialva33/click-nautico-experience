@@ -5,9 +5,15 @@ test.describe('Business Logic & Flows', () => {
     await page.goto('/');
   });
 
-  test('Language switching should update content (PT -> EN)', async ({ page }) => {
+  test('Language switching should update content (PT -> EN)', async ({ page, isMobile }) => {
     // Initial state (PT forced by config)
     await expect(page.getByRole('heading', { name: /Aprenda a voar/i }).first()).toBeVisible();
+
+    // Open Mobile Menu if needed
+    if (isMobile) {
+      await page.getByLabel('Abrir menu').click();
+      await page.waitForTimeout(300); // Animation
+    }
 
     // Open Language Selector
     const langBtn = page.getByLabel('Select language');

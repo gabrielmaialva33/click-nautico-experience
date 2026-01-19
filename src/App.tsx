@@ -11,7 +11,7 @@ import { BookingModal } from './components/booking/BookingModal'
 export default function App() {
   return (
     <BookingProvider>
-      <div className="min-h-screen bg-sand-50">
+      <div className="min-h-screen bg-gray-900">
         <Navbar />
         <main>
           <Hero />

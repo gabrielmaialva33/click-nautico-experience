@@ -62,7 +62,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6 border-b border-gray-800 pb-2 inline-block">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-6 border-b border-gray-800 pb-2 inline-block">
               {t.footer.navigation}
             </h4>
             <ul className="space-y-4">
@@ -81,7 +81,7 @@ export function Footer() {
 
           {/* Location */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6 border-b border-gray-800 pb-2 inline-block">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-6 border-b border-gray-800 pb-2 inline-block">
               {t.footer.location}
             </h4>
             <address className="not-italic text-gray-400 space-y-3 text-lg">

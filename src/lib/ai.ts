@@ -7,26 +7,9 @@ import type { Locale } from './i18n'
 
 const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || ''
 
-// NVIDIA API Keys for fallback (load balancing between 4 keys)
-// Configure via GitHub Secrets: VITE_NVIDIA_API_KEY_1, VITE_NVIDIA_API_KEY_2, etc.
-const NVIDIA_API_KEYS = [
-  import.meta.env.VITE_NVIDIA_API_KEY_1,
-  import.meta.env.VITE_NVIDIA_API_KEY_2,
-  import.meta.env.VITE_NVIDIA_API_KEY_3,
-  import.meta.env.VITE_NVIDIA_API_KEY_4,
-].filter(Boolean) as string[]
-
-let currentNvidiaKeyIndex = 0
-
-function getNextNvidiaKey(): string | null {
-  if (NVIDIA_API_KEYS.length === 0) return null
-  const key = NVIDIA_API_KEYS[currentNvidiaKeyIndex]
-  currentNvidiaKeyIndex = (currentNvidiaKeyIndex + 1) % NVIDIA_API_KEYS.length
-  return key
-}
-
+// NVIDIA fallback uses Cloudflare Worker proxy (API key stored there)
 export function hasNvidiaFallback(): boolean {
-  return NVIDIA_API_KEYS.length > 0
+  return true // Always available via proxy
 }
 
 // ============================================
@@ -41,7 +24,9 @@ export const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY)
 
 export const GOOGLE_MODEL = 'gemini-2.0-flash'
 export const NVIDIA_MODEL = 'nvidia/llama-3.3-nemotron-super-49b-v1.5'
-export const NVIDIA_BASE_URL = 'https://integrate.api.nvidia.com/v1'
+
+// Use Cloudflare Worker proxy to bypass CORS
+export const NVIDIA_PROXY_URL = 'https://click-nautico-ai.gabrielmaialva33.workers.dev'
 
 // ============================================
 // System Prompts (Multi-language)
@@ -123,22 +108,16 @@ export async function* streamNvidiaChat(
   messages: NvidiaMessage[],
   locale: Locale
 ): AsyncGenerator<string> {
-  const apiKey = getNextNvidiaKey()
-
-  if (!apiKey) {
-    throw new Error('No NVIDIA API key configured')
-  }
-
   const systemMessage: NvidiaMessage = {
     role: 'system',
     content: SYSTEM_PROMPTS[locale],
   }
 
-  const response = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
+  // Use Cloudflare Worker proxy (handles CORS + API key)
+  const response = await fetch(NVIDIA_PROXY_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       model: NVIDIA_MODEL,

@@ -186,6 +186,7 @@ export function BookingModal() {
       onClick={handleBackdropClick}
     >
       <motion.div
+        id="booking-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"

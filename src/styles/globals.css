@@ -79,8 +79,8 @@
 
   body {
     font-family: var(--font-body);
-    background-color: var(--color-sand-50);
-    color: var(--color-sand-900);
+    background-color: #111827;
+    color: white;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
