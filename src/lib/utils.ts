@@ -26,3 +26,11 @@ export const WHATSAPP_MESSAGES = {
   tour: 'Olá! Gostaria de agendar um passeio. Quais datas estão disponíveis?',
   rental: 'Olá! Gostaria de alugar equipamento de kite. Qual a disponibilidade?',
 } as const
+
+// Helper to safely resolve nested translation keys
+// e.g. resolveTranslation(t, 'kite.step1Title')
+export function resolveTranslation(obj: any, path: string): string {
+  if (!path) return ''
+  const value = path.split('.').reduce((prev, curr) => prev?.[curr], obj)
+  return typeof value === 'string' ? value : path
+}
