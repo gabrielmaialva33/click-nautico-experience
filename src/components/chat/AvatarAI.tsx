@@ -66,16 +66,16 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         {/* Gradients com IDs únicos */}
         <defs>
           <linearGradient id={oceanGradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" />
-            <stop offset="100%" stopColor="#0891b2" />
+            <stop offset="0%" stopColor="#22d3ee" /> {/* ocean-400 */}
+            <stop offset="100%" stopColor="#0891b2" /> {/* ocean-600 */}
           </linearGradient>
           <linearGradient id={skinGradId} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#fcd9b6" />
-            <stop offset="100%" stopColor="#f5c99d" />
+            <stop offset="0%" stopColor="#fed7aa" /> {/* coral-200 */}
+            <stop offset="100%" stopColor="#fdba74" /> {/* coral-300 */}
           </linearGradient>
           <linearGradient id={hairGradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#5c4033" />
-            <stop offset="100%" stopColor="#3d2914" />
+            <stop offset="0%" stopColor="#7c2d12" /> {/* coral-900 */}
+            <stop offset="100%" stopColor="#431407" /> {/* coral-950 */}
           </linearGradient>
         </defs>
 
@@ -86,7 +86,7 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         <path
           d="M10 65 Q25 62 40 65 T70 65 T100 65"
           fill="none"
-          stroke="rgba(255,255,255,0.2)"
+          stroke="rgba(255,255,255,0.3)"
           strokeWidth="3"
         />
 
@@ -99,13 +99,13 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
           fill={`url(#${hairGradId})`}
         />
         {/* Messy beach hair strands */}
-        <path d="M30 30 Q28 22 35 20" fill="none" stroke="#5c4033" strokeWidth="3" strokeLinecap="round" />
-        <path d="M45 25 Q43 18 50 16" fill="none" stroke="#5c4033" strokeWidth="3" strokeLinecap="round" />
-        <path d="M60 26 Q62 19 68 22" fill="none" stroke="#5c4033" strokeWidth="3" strokeLinecap="round" />
+        <path d="M30 30 Q28 22 35 20" fill="none" stroke="#7c2d12" strokeWidth="3" strokeLinecap="round" />
+        <path d="M45 25 Q43 18 50 16" fill="none" stroke="#7c2d12" strokeWidth="3" strokeLinecap="round" />
+        <path d="M60 26 Q62 19 68 22" fill="none" stroke="#7c2d12" strokeWidth="3" strokeLinecap="round" />
 
         {/* Eyebrows */}
-        <path d="M33 42 Q38 40 43 42" fill="none" stroke="#5c4033" strokeWidth="2" strokeLinecap="round" />
-        <path d="M57 42 Q62 40 67 42" fill="none" stroke="#5c4033" strokeWidth="2" strokeLinecap="round" />
+        <path d="M33 42 Q38 40 43 42" fill="none" stroke="#7c2d12" strokeWidth="2" strokeLinecap="round" />
+        <path d="M57 42 Q62 40 67 42" fill="none" stroke="#7c2d12" strokeWidth="2" strokeLinecap="round" />
 
         {/* Eyes */}
         <g>
@@ -115,7 +115,7 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
             animate={isThinking && !prefersReducedMotion ? { x: [0, 2, -2, 0] } : { x: 0 }}
             transition={{ duration: 2, repeat: isThinking ? Infinity : 0, ease: "easeInOut" }}
           >
-            <circle cx="38" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#2d1810" />
+            <circle cx="38" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#431407" />
             <circle cx="36" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
           </motion.g>
 
@@ -125,7 +125,7 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
             animate={isThinking && !prefersReducedMotion ? { x: [0, 2, -2, 0] } : { x: 0 }}
             transition={{ duration: 2, repeat: isThinking ? Infinity : 0, ease: "easeInOut" }}
           >
-            <circle cx="62" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#2d1810" />
+            <circle cx="62" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#431407" />
             <circle cx="60" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
           </motion.g>
         </g>
@@ -140,8 +140,8 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         <path d="M43 68 Q50 72 57 68" fill="white" opacity="0.9" />
 
         {/* Blush */}
-        <circle cx="30" cy="58" r="5" fill="#ffb4a2" opacity="0.4" />
-        <circle cx="70" cy="58" r="5" fill="#ffb4a2" opacity="0.4" />
+        <circle cx="30" cy="58" r="5" fill="#f87171" opacity="0.3" />
+        <circle cx="70" cy="58" r="5" fill="#f87171" opacity="0.3" />
 
         {/* Sunglasses on head */}
         <path d="M25 32 L75 32" fill="none" stroke="#1a1a1a" strokeWidth="2" />

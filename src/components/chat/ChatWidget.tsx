@@ -32,7 +32,7 @@ export function ChatWidget() {
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Chat AI"
-          className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 shadow-lg shadow-teal-500/30 transition-all hover:shadow-xl hover:shadow-teal-500/40"
+          className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-ocean-500 to-ocean-600 shadow-lg shadow-ocean-500/30 transition-all hover:shadow-xl hover:shadow-ocean-500/40 border border-white/10"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -61,8 +61,8 @@ export function ChatWidget() {
           {/* Pulse animation when closed */}
           {!isOpen && (
             <>
-              <span className="absolute inset-0 animate-ping rounded-full bg-teal-500 opacity-20" />
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-white shadow-sm">
+              <span className="absolute inset-0 animate-ping rounded-full bg-ocean-400 opacity-20" />
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-coral-500 text-[10px] font-bold text-white shadow-sm border border-white/20">
                 AI
               </span>
             </>
@@ -70,7 +70,7 @@ export function ChatWidget() {
 
           {/* Tooltip */}
           {!isOpen && (
-            <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-lg bg-slate-800 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xl transition-opacity group-hover:opacity-100">
+            <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-lg bg-sand-900/90 backdrop-blur-md px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xl transition-opacity group-hover:opacity-100 border border-white/10">
               {t.chat.tooltip}
             </span>
           )}

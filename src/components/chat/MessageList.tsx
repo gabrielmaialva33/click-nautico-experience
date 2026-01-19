@@ -47,10 +47,10 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
           transition={{ duration: 0.3, delay: 0.1 }}
           className="text-center"
         >
-          <h3 className="mb-2 text-xl font-semibold text-white">
+          <h3 className="mb-2 text-xl font-display font-bold text-white tracking-tight">
             {t.chat.greeting}
           </h3>
-          <p className="mb-6 text-sm text-slate-400">
+          <p className="mb-8 text-sm text-ocean-100 font-light leading-relaxed max-w-[200px] mx-auto">
             {t.chat.greetingDesc}
           </p>
         </motion.div>
@@ -66,9 +66,9 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
             <button
               key={reply.text}
               onClick={() => onQuickReply?.(reply.text)}
-              className="flex items-center gap-1.5 rounded-full border border-slate-700 bg-slate-800/50 px-4 py-2 text-sm text-slate-300 transition-all hover:border-teal-500/50 hover:bg-slate-800 hover:text-white active:scale-95"
+              className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-medium text-ocean-100 transition-all hover:border-ocean-400/50 hover:bg-ocean-500/10 hover:text-white hover:shadow-lg hover:shadow-ocean-500/20 active:scale-95"
             >
-              <reply.icon className="h-4 w-4" />
+              <reply.icon className="h-3.5 w-3.5 text-ocean-300 group-hover:text-ocean-200 transition-colors" />
               <span>{reply.text}</span>
             </button>
           ))}
@@ -78,7 +78,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
   }
 
   return (
-    <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
+    <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
       <AnimatePresence mode="popLayout">
         {messages.map((message, index) => (
           <MessageBubble
@@ -95,14 +95,17 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-3 pl-2"
         >
-          <AvatarAI size="sm" isThinking />
-          <div className="flex items-center gap-1 rounded-2xl rounded-bl-none bg-slate-800 px-4 py-3">
+          <div className="relative">
+            <div className="absolute inset-0 bg-ocean-400 blur-md opacity-20 rounded-full" />
+            <AvatarAI size="sm" isThinking />
+          </div>
+          <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-sm bg-white/5 border border-white/5 px-4 py-3 backdrop-blur-sm">
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="h-2 w-2 rounded-full bg-teal-400"
+                className="h-1.5 w-1.5 rounded-full bg-ocean-300"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.4, 1, 0.4],
