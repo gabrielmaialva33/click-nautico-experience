@@ -88,4 +88,27 @@ export interface Translations {
     clearChat: string
     error: string
   }
-}
+  booking: {
+    title: string
+    step1: string
+    step2: string
+    step3: string
+    type: {
+      kite: string
+      tour: string
+    }
+    labels: {
+      package: string
+      date: string
+      name: string
+      notes: string
+      send: string
+    }
+    placeholders: {
+      package: string
+      name: string
+      notes: string
+    }
+    whatsappMessage: string
+  }
+} // End of Translations interface

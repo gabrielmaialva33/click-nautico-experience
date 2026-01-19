@@ -88,4 +88,27 @@ export const en: Translations = {
     clearChat: 'Clear chat',
     error: 'Oops! Something went wrong. Try again? 😅',
   },
+  booking: {
+    title: 'Book Experience',
+    step1: 'What are you looking for?',
+    step2: 'Details',
+    step3: 'Your Info',
+    type: {
+      kite: 'Kite Lessons',
+      tour: 'Tours',
+    },
+    labels: {
+      package: 'Package / Interest',
+      date: 'Preferred Date',
+      name: 'Your Name',
+      notes: 'Notes (optional)',
+      send: 'Send Request',
+    },
+    placeholders: {
+      package: 'Select an option',
+      name: 'What is your name?',
+      notes: 'Ex: How many people? Time?',
+    },
+    whatsappMessage: 'Hello! I would like to book an experience:\n\n*Type:* {type}\n*Package:* {package}\n*Date:* {date}\n*Name:* {name}\n*Notes:* {notes}',
+  },
 }

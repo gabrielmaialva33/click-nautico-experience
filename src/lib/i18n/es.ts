@@ -88,4 +88,27 @@ export const es: Translations = {
     clearChat: 'Limpiar chat',
     error: '¡Ups! Algo salió mal. ¿Intentas de nuevo? 😅',
   },
+  booking: {
+    title: 'Reservar Experiencia',
+    step1: '¿Qué estás buscando?',
+    step2: 'Detalles',
+    step3: 'Tus Datos',
+    type: {
+      kite: 'Clases de Kite',
+      tour: 'Paseos',
+    },
+    labels: {
+      package: 'Paquete / Interés',
+      date: 'Fecha Preferida',
+      name: 'Tu Nombre',
+      notes: 'Observaciones (opcional)',
+      send: 'Enviar Solicitud',
+    },
+    placeholders: {
+      package: 'Selecciona una opción',
+      name: '¿Cómo te llamas?',
+      notes: 'Ej: ¿Cuántas personas? ¿Horario?',
+    },
+    whatsappMessage: '¡Hola! Me gustaría reservar una experiencia:\n\n*Tipo:* {type}\n*Paquete:* {package}\n*Fecha:* {date}\n*Nombre:* {name}\n*Obs:* {notes}',
+  },
 }
