@@ -1,38 +1,65 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { useBooking } from './BookingContext'
 import { useI18n } from '@/lib/i18n'
 import { WHATSAPP_LINK } from '@/constants'
+
+const initialFormState = {
+  type: '',
+  package: '',
+  date: '',
+  name: '',
+  notes: ''
+}
 
 export function BookingModal() {
   const { isOpen, closeBooking, initialData } = useBooking()
   const { t } = useI18n()
 
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({
-    type: '',
-    package: '',
-    date: '',
-    name: '',
-    notes: ''
-  })
+  const [formData, setFormData] = useState(initialFormState)
 
-  // Reset or initialize when opening
+  // Reset form and initialize when opening
   useEffect(() => {
     if (isOpen) {
       setStep(initialData.type ? 2 : 1)
-      setFormData(prev => ({
-        ...prev,
+      setFormData({
+        ...initialFormState,
         type: initialData.type || '',
         package: initialData.package || ''
-      }))
+      })
+    } else {
+      // Reset when closing
+      setStep(1)
+      setFormData(initialFormState)
     }
   }, [isOpen, initialData])
+
+  // ESC key handler
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      closeBooking()
+    }
+  }, [closeBooking])
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+      return () => document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, handleKeyDown])
 
   if (!isOpen) return null
 
   const handleNext = () => setStep(prev => prev + 1)
   const handleBack = () => setStep(prev => prev - 1)
+
+  // Click outside handler
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeBooking()
+    }
+  }
 
   const handleSend = () => {
     const text = t.booking.whatsappMessage
@@ -94,14 +121,15 @@ export function BookingModal() {
         />
       </div>
       <div className="flex justify-between pt-4">
-        {/* Only show back button if type wasn't pre-selected (meaning we started at step 1) OR user wants to go back to verify info */}
-        <button onClick={handleBack} className="text-gray-400 hover:text-white">← Back</button>
+        <button onClick={handleBack} className="text-gray-400 hover:text-white">
+          ← {t.booking.labels.back}
+        </button>
         <button
           onClick={handleNext}
           disabled={!formData.date}
           className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2 font-semibold text-white disabled:opacity-50"
         >
-          Next →
+          {t.booking.labels.next} →
         </button>
       </div>
     </div>
@@ -130,7 +158,9 @@ export function BookingModal() {
         />
       </div>
       <div className="flex justify-between pt-4">
-        <button onClick={handleBack} className="text-gray-400 hover:text-white">← Back</button>
+        <button onClick={handleBack} className="text-gray-400 hover:text-white">
+          ← {t.booking.labels.back}
+        </button>
         <button
           onClick={handleSend}
           disabled={!formData.name}
@@ -143,12 +173,16 @@ export function BookingModal() {
   )
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm"
+      onClick={handleBackdropClick}
+    >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         className="w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-6 py-4">
           <h3 className="text-lg font-bold text-white">
