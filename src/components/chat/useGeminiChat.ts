@@ -29,6 +29,7 @@ export function useGeminiChat() {
 
   const historyRef = useRef<{ role: string; parts: { text: string }[] }[]>([])
   const nvidiaHistoryRef = useRef<NvidiaMessage[]>([])
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   const sendWithGoogle = useCallback(
     async (content: string, assistantMessageId: string) => {
@@ -39,7 +40,8 @@ export function useGeminiChat() {
         parts: msg.parts,
       }))
 
-      const chat = model.startChat({
+      // Lazy-loaded: startChat is now async
+      const chat = await model.startChat({
         history: chatHistory,
         generationConfig: {
           maxOutputTokens: 1000,
@@ -151,8 +153,7 @@ export function useGeminiChat() {
       // Execute actions
       if (actions.length > 0) {
         actions.forEach(action => {
-          console.log('Executing Client Tool:', action)
-          if (action.type === 'SAVE_NAME') { console.log('Action: Saving Name', action.payload); setVisitorName(action.payload) }
+          if (action.type === 'SAVE_NAME') setVisitorName(action.payload)
           if (action.type === 'SAVE_ROLE') setVisitorRole(action.payload)
         })
 
@@ -179,6 +180,12 @@ export function useGeminiChat() {
   const sendMessage = useCallback(
     async (content: string) => {
       if (!content.trim() || state.isLoading) return
+
+      // Cancel any previous request
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+      abortControllerRef.current = new AbortController()
 
       const userMessage: Message = {
         id: generateId(),
@@ -232,6 +239,11 @@ export function useGeminiChat() {
   )
 
   const clearMessages = useCallback(() => {
+    // Cancel any ongoing request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+      abortControllerRef.current = null
+    }
     setState({
       messages: [],
       isLoading: false,

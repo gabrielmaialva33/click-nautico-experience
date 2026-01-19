@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { AvatarAI } from './AvatarAI'
 import type { Message } from './types'
@@ -14,7 +14,7 @@ export function MessageBubble({ message, isLatest = false, isLoading = false }: 
   const showThinking = isLatest && isLoading && !isUser
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
@@ -36,7 +36,7 @@ export function MessageBubble({ message, isLatest = false, isLoading = false }: 
           {message.content || (showThinking && (
             <span className="flex items-center gap-1.5 py-1">
               {[0, 1, 2].map((i) => (
-                <motion.span
+                <m.span
                   key={i}
                   className="h-1.5 w-1.5 rounded-full bg-ocean-300"
                   animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
@@ -61,6 +61,6 @@ export function MessageBubble({ message, isLatest = false, isLoading = false }: 
           )}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }

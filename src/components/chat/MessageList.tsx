@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Wind, DollarSign, Ship, Calendar } from 'lucide-react'
 import { MessageBubble } from './MessageBubble'
 import { AvatarAI } from './AvatarAI'
@@ -12,15 +12,15 @@ interface MessageListProps {
   onQuickReply?: (message: string) => void
 }
 
-const quickReplies = [
-  { icon: Wind, text: 'Aulas de Kite' },
-  { icon: DollarSign, text: 'Preços' },
-  { icon: Ship, text: 'Passeios' },
-  { icon: Calendar, text: 'Disponibilidade' },
-]
-
 export function MessageList({ messages, isLoading, onQuickReply }: MessageListProps) {
   const { t } = useI18n()
+
+  const quickReplies = [
+    { icon: Wind, text: t.chat.quickReplies.kite },
+    { icon: DollarSign, text: t.chat.quickReplies.prices },
+    { icon: Ship, text: t.chat.quickReplies.tours },
+    { icon: Calendar, text: t.chat.quickReplies.availability },
+  ]
   const containerRef = useRef<HTMLDivElement>(null)
   const prevMessageCount = useRef(0)
 
@@ -50,17 +50,17 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
     return (
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-8">
         {/* Avatar Animado Grande */}
-        <motion.div
+        <m.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.3 }}
           className="mb-6"
         >
           <AvatarAI size="lg" />
-        </motion.div>
+        </m.div>
 
         {/* Greeting */}
-        <motion.div
+        <m.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.1 }}
@@ -72,10 +72,10 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
           <p className="mb-8 text-sm text-ocean-100 font-light leading-relaxed max-w-[200px] mx-auto">
             {t.chat.greetingDesc}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Quick Replies */}
-        <motion.div
+        <m.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
@@ -91,7 +91,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
               <span>{reply.text}</span>
             </button>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     )
   }
@@ -114,7 +114,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
 
       {/* Typing indicator com Avatar Animado */}
       {isLoading && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-3 pl-2"
@@ -125,7 +125,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
           </div>
           <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-sm bg-white/5 border border-white/5 px-4 py-3 backdrop-blur-sm">
             {[0, 1, 2].map((i) => (
-              <motion.div
+              <m.div
                 key={i}
                 className="h-1.5 w-1.5 rounded-full bg-ocean-300"
                 animate={{
@@ -140,7 +140,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
               />
             ))}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </div>
   )

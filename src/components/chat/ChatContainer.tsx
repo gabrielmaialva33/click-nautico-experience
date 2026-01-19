@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Trash2, X } from 'lucide-react'
 import { MessageList } from './MessageList'
 import { ChatInput } from './ChatInput'
@@ -15,7 +15,7 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
   const { messages, isLoading, error, provider, orchestrationStatus, sendMessage, clearMessages } = useGeminiChat()
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -67,18 +67,18 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
 
       {/* Error Toast */}
       {error && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="mx-4 mt-4 rounded-xl bg-red-500/20 border border-red-500/30 px-4 py-3 text-center text-sm text-red-200 backdrop-blur-md"
         >
           {error}
-        </motion.div>
+        </m.div>
       )}
 
       {/* Orchestration Status - Modern Pill */}
       {orchestrationStatus && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -88,7 +88,7 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
             <div className="h-1.5 w-1.5 rounded-full bg-ocean-400 animate-pulse" />
             <span>{orchestrationStatus}</span>
           </div>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Messages */}
@@ -98,6 +98,6 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
 
       {/* Input */}
       <ChatInput onSend={sendMessage} isLoading={isLoading} provider={provider} />
-    </motion.div>
+    </m.div>
   )
 }

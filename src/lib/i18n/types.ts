@@ -102,6 +102,12 @@ export interface Translations {
     clearChat: string
     error: string
     tooltip: string
+    quickReplies: {
+      kite: string
+      prices: string
+      tours: string
+      availability: string
+    }
   }
   booking: {
     title: string

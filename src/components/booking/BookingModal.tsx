@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useBooking } from './BookingContext'
 import { useI18n } from '@/lib/i18n'
 import { WHATSAPP_LINK } from '@/constants'
@@ -182,7 +182,7 @@ export function BookingModal() {
       className="fixed inset-0 z-[100] flex items-center justify-center bg-sand-950/80 px-4 backdrop-blur-xl"
       onClick={handleBackdropClick}
     >
-      <motion.div
+      <m.div
         id="booking-modal"
         role="dialog"
         aria-modal="true"
@@ -208,12 +208,12 @@ export function BookingModal() {
 
         {/* Progress Bar */}
         <div className="h-1 w-full bg-white/5">
-          <motion.div
+          <m.div
             className="h-full bg-gradient-to-r from-ocean-500 to-ocean-400"
             animate={{ width: `${(step / 3) * 100}%` }}
           />
         </div>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

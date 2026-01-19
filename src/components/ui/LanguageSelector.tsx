@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import BR from 'country-flag-icons/react/3x2/BR'
@@ -52,7 +52,7 @@ export function LanguageSelector({ className }: { className?: string }) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -81,7 +81,7 @@ export function LanguageSelector({ className }: { className?: string }) {
                 </button>
               )
             })}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

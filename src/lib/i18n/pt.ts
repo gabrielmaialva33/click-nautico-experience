@@ -102,6 +102,12 @@ export const pt: Translations = {
     clearChat: 'Limpar conversa',
     error: 'Ops! Algo deu errado. Tenta de novo? 😅',
     tooltip: 'Planeje sua viagem com IA!',
+    quickReplies: {
+      kite: 'Aulas de Kite',
+      prices: 'Preços',
+      tours: 'Passeios',
+      availability: 'Disponibilidade',
+    },
   },
   booking: {
     title: 'Agendar Experiência',

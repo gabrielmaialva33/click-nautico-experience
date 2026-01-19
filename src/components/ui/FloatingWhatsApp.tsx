@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { WHATSAPP_LINK } from '@/constants'
 import { useI18n } from '@/lib/i18n'
 
@@ -6,7 +6,7 @@ export function FloatingWhatsApp() {
   const { t } = useI18n()
 
   return (
-    <motion.a
+    <m.a
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
@@ -28,6 +28,6 @@ export function FloatingWhatsApp() {
 
       {/* Pulse animation */}
       <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20" />
-    </motion.a>
+    </m.a>
   )
 }

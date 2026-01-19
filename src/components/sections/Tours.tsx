@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { TOURS, WHATSAPP_LINK } from '@/constants'
 import { useBooking } from '../booking/BookingContext'
 import { useI18n } from '@/lib/i18n'
@@ -20,7 +20,7 @@ export function Tours() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header - Epic Scale */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -41,12 +41,12 @@ export function Tours() {
           <p className="text-xl sm:text-2xl text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
             {t.tours.description}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Tours Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {TOURS.map((tour, index) => (
-            <motion.div
+            <m.div
               key={tour.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -111,12 +111,12 @@ export function Tours() {
                   {t.tours.checkAvailability}
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* CTA Box */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -149,7 +149,7 @@ export function Tours() {
               {t.tours.talkConcierge}
             </a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

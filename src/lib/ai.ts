@@ -1,9 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
-// export type { Locale } from './i18n'
+// Lazy-loaded Google AI - saves ~180KB on initial bundle
 export type Locale = 'pt' | 'en' | 'es'
-// The error said "Module './ai' declares 'Locale' locally".
-// Line 2 was: import type { Locale } from './i18n'
-// I should export it. `export type { Locale } from './i18n'`
 
 // ============================================
 // API Keys Configuration
@@ -17,10 +13,33 @@ export function hasNvidiaFallback(): boolean {
 }
 
 // ============================================
-// Google AI Client
+// Google AI Client (Lazy Loaded)
 // ============================================
 
-export const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY)
+// Singleton pattern for lazy-loaded Google AI
+let _genAI: import('@google/generative-ai').GoogleGenerativeAI | null = null
+
+export async function getGenAI() {
+  if (!_genAI) {
+    const { GoogleGenerativeAI } = await import('@google/generative-ai')
+    _genAI = new GoogleGenerativeAI(GOOGLE_API_KEY)
+  }
+  return _genAI
+}
+
+// Legacy export for compatibility - will be removed
+export const genAI = {
+  getGenerativeModel: (config: { model: string }) => {
+    // This is a proxy that lazy loads the real implementation
+    return {
+      startChat: async (options: unknown) => {
+        const ai = await getGenAI()
+        const model = ai.getGenerativeModel(config)
+        return model.startChat(options as Parameters<typeof model.startChat>[0])
+      }
+    }
+  }
+}
 
 // ============================================
 // Model Configuration

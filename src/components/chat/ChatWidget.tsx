@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X } from 'lucide-react'
 import { ChatContainer } from './ChatContainer'
 import { useI18n } from '@/lib/i18n'
@@ -19,7 +19,7 @@ export function ChatWidget() {
       <div className={`fixed bottom-20 right-4 z-50 flex flex-col items-end gap-4 md:bottom-6 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
         {/* Tooltip on hover */}
         {!isOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             className="hidden md:group-hover:block"
@@ -27,7 +27,7 @@ export function ChatWidget() {
         )}
 
         {/* Toggle Button */}
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
@@ -36,7 +36,7 @@ export function ChatWidget() {
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
-              <motion.div
+              <m.div
                 key="close"
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
@@ -44,9 +44,9 @@ export function ChatWidget() {
                 transition={{ duration: 0.2 }}
               >
                 <X className="h-6 w-6 text-white" strokeWidth={2.5} />
-              </motion.div>
+              </m.div>
             ) : (
-              <motion.div
+              <m.div
                 key="chat"
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -54,7 +54,7 @@ export function ChatWidget() {
                 transition={{ duration: 0.2 }}
               >
                 <MessageCircle className="h-6 w-6 text-white" strokeWidth={2} />
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
 
@@ -74,7 +74,7 @@ export function ChatWidget() {
               {t.chat.tooltip}
             </span>
           )}
-        </motion.button>
+        </m.button>
       </div>
     </>
   )

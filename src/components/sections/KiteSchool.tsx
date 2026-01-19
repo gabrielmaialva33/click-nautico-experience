@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useBooking } from '../booking/BookingContext'
 import {
   COURSE_STAGES,
@@ -38,7 +38,7 @@ export function KiteSchool() {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header - Epic Scale */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -59,10 +59,10 @@ export function KiteSchool() {
           <p className="text-xl sm:text-2xl text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
             {t.kite.description}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Course Stages - Tech Cards */}
-        <motion.div
+        <m.div
           variants={container}
           initial="hidden"
           whileInView="show"
@@ -70,7 +70,7 @@ export function KiteSchool() {
           className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24"
         >
           {COURSE_STAGES.map((stage, index) => (
-            <motion.div
+            <m.div
               key={stage.step}
               variants={item}
               className="relative group"
@@ -95,12 +95,12 @@ export function KiteSchool() {
                   {stage.descKey ? tr(stage.descKey) : stage.description}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Pricing Cards */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -123,7 +123,7 @@ export function KiteSchool() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {LESSON_PRICES.map((lesson) => (
-              <motion.div
+              <m.div
                 key={lesson.id}
                 whileHover={{ y: -8 }}
                 className={cn(
@@ -194,13 +194,13 @@ export function KiteSchool() {
                     {t.kite.reserve}
                   </button>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Special Activities */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -242,10 +242,10 @@ export function KiteSchool() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Rentals Table */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -326,7 +326,7 @@ export function KiteSchool() {
           <p className="mt-3 text-xs text-gray-500 text-right italic">
             {t.kite.note}
           </p>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useState, useEffect, useId } from 'react'
 
 interface AvatarAIProps {
@@ -51,7 +51,7 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
   const hairGradId = `hair-${uniqueId}`
 
   return (
-    <motion.div
+    <m.div
       className={`relative flex-shrink-0 ${sizes[size]} ${className}`}
       animate={isThinking && !prefersReducedMotion ? { scale: [1, 1.05, 1] } : {}}
       transition={{ duration: 1.5, repeat: isThinking ? Infinity : 0 }}
@@ -111,23 +111,23 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         <g>
           {/* Left eye */}
           <ellipse cx="38" cy="50" rx="6" ry={isBlinking && !prefersReducedMotion ? 1 : 5} fill="white" />
-          <motion.g
+          <m.g
             animate={isThinking && !prefersReducedMotion ? { x: [0, 2, -2, 0] } : { x: 0 }}
             transition={{ duration: 2, repeat: isThinking ? Infinity : 0, ease: "easeInOut" }}
           >
             <circle cx="38" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#431407" />
             <circle cx="36" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
-          </motion.g>
+          </m.g>
 
           {/* Right eye */}
           <ellipse cx="62" cy="50" rx="6" ry={isBlinking && !prefersReducedMotion ? 1 : 5} fill="white" />
-          <motion.g
+          <m.g
             animate={isThinking && !prefersReducedMotion ? { x: [0, 2, -2, 0] } : { x: 0 }}
             transition={{ duration: 2, repeat: isThinking ? Infinity : 0, ease: "easeInOut" }}
           >
             <circle cx="62" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#431407" />
             <circle cx="60" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
-          </motion.g>
+          </m.g>
         </g>
 
         {/* Nose */}
@@ -155,6 +155,6 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
           <span className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-75" />
         )}
       </span>
-    </motion.div>
+    </m.div>
   )
 }

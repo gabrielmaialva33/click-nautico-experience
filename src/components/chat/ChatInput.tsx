@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useI18n } from '@/lib/i18n'
 
 interface ChatInputProps {
@@ -53,7 +53,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           />
         </div>
 
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleSubmit}
@@ -61,7 +61,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-ocean-500 hover:bg-ocean-400 text-white shadow-lg transition-all disabled:opacity-0 disabled:scale-50 mb-1 mr-1"
         >
           {isLoading ? (
-            <motion.div
+            <m.div
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
               className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
@@ -81,7 +81,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               />
             </svg>
           )}
-        </motion.button>
+        </m.button>
       </div>
 
       {/* Powered by */}

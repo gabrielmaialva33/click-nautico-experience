@@ -102,6 +102,12 @@ export const en: Translations = {
     clearChat: 'Clear chat',
     error: 'Oops! Something went wrong. Try again? 😅',
     tooltip: 'Plan your trip with AI!',
+    quickReplies: {
+      kite: 'Kite Lessons',
+      prices: 'Prices',
+      tours: 'Tours',
+      availability: 'Availability',
+    },
   },
   booking: {
     title: 'Book Experience',

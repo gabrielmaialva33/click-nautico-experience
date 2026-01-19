@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { STATS, INSTAGRAM_LINK, WHATSAPP_LINK } from '@/constants'
 import { useI18n } from '@/lib/i18n'
 
@@ -13,7 +13,7 @@ export function Hero() {
       {/* Background Video/Image */}
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
-        <motion.div
+        <m.div
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
           className="relative w-full h-full"
@@ -23,7 +23,7 @@ export function Hero() {
             alt={t.hero.imageAlt}
             className="w-full h-full object-cover object-center brightness-110 contrast-110 saturate-[1.1]"
           />
-        </motion.div>
+        </m.div>
 
         {/* Cinematic Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-sand-900/80 via-sand-900/20 to-sand-900/90" />
@@ -39,7 +39,7 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         {/* Badge - Clean Tech Look */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -49,10 +49,10 @@ export function Hero() {
           <span className="text-white/90 text-sm font-medium tracking-wide uppercase">
             {t.hero.since}
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Main Title - Epic Scale */}
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -62,10 +62,10 @@ export function Hero() {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-ocean-300 to-cyan-300 drop-shadow-2xl">
             NÁUTICO
           </span>
-        </motion.h1>
+        </m.h1>
 
         {/* Subtitle */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -76,10 +76,10 @@ export function Hero() {
           <span className="text-ocean-300 font-medium">
             {t.hero.subtitleHighlight}
           </span>
-        </motion.p>
+        </m.p>
 
         {/* Stats */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -97,10 +97,10 @@ export function Hero() {
               <div className="text-xs sm:text-sm text-gray-400 uppercase tracking-widest font-medium">{stat.label}</div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* CTA Buttons - Solid & Outline (No Glass) */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
@@ -131,10 +131,10 @@ export function Hero() {
             </svg>
             @clicknautico
           </a>
-        </motion.div>
+        </m.div>
 
         {/* Scroll indicator */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
@@ -144,7 +144,7 @@ export function Hero() {
             <span className="text-[10px] uppercase tracking-[0.2em] font-semibold">{t.hero.scroll}</span>
             <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent" />
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )
