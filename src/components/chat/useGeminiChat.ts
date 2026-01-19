@@ -3,9 +3,7 @@ import {
   genAI,
   GOOGLE_MODEL,
   SYSTEM_PROMPTS,
-  streamNvidiaChat,
   type AIProvider,
-  type NvidiaMessage,
 } from '@/lib/ai'
 import { useI18n } from '@/lib/i18n'
 import type { Message, ChatState } from './types'
@@ -22,7 +20,6 @@ export function useGeminiChat() {
   const [provider, setProvider] = useState<AIProvider>('google')
 
   const historyRef = useRef<{ role: string; parts: { text: string }[] }[]>([])
-  const nvidiaHistoryRef = useRef<NvidiaMessage[]>([])
 
   const sendWithGoogle = useCallback(
     async (content: string, assistantMessageId: string) => {
@@ -39,7 +36,10 @@ export function useGeminiChat() {
           maxOutputTokens: 1000,
           temperature: 0.8,
         },
-        systemInstruction: SYSTEM_PROMPTS[locale],
+        systemInstruction: {
+          role: 'user',
+          parts: [{ text: SYSTEM_PROMPTS[locale] }],
+        },
       })
 
       const result = await chat.sendMessageStream(content)
@@ -63,30 +63,6 @@ export function useGeminiChat() {
         { role: 'user', parts: [{ text: content }] },
         { role: 'model', parts: [{ text: fullResponse }] }
       )
-
-      return fullResponse
-    },
-    [locale]
-  )
-
-  const sendWithNvidia = useCallback(
-    async (content: string, assistantMessageId: string) => {
-      nvidiaHistoryRef.current.push({ role: 'user', content })
-
-      let fullResponse = ''
-
-      for await (const chunk of streamNvidiaChat(nvidiaHistoryRef.current, locale)) {
-        fullResponse += chunk
-
-        setState((prev) => ({
-          ...prev,
-          messages: prev.messages.map((msg) =>
-            msg.id === assistantMessageId ? { ...msg, content: fullResponse } : msg
-          ),
-        }))
-      }
-
-      nvidiaHistoryRef.current.push({ role: 'assistant', content: fullResponse })
 
       return fullResponse
     },
@@ -119,34 +95,24 @@ export function useGeminiChat() {
       }))
 
       try {
-        // Try Google first
         await sendWithGoogle(content, assistantMessage.id)
         setProvider('google')
         setState((prev) => ({ ...prev, isLoading: false }))
-      } catch (googleError) {
-        console.warn('Google AI failed, trying NVIDIA fallback:', googleError)
-
-        try {
-          // Fallback to NVIDIA
-          await sendWithNvidia(content, assistantMessage.id)
-          setProvider('nvidia')
-          setState((prev) => ({ ...prev, isLoading: false }))
-        } catch (nvidiaError) {
-          console.error('Both providers failed:', nvidiaError)
-          setState((prev) => ({
-            ...prev,
-            isLoading: false,
-            error: locale === 'pt'
-              ? 'Ops! Algo deu errado. Tenta de novo? 😅'
-              : locale === 'es'
-              ? '¡Ups! Algo salió mal. ¿Intentas de nuevo? 😅'
-              : 'Oops! Something went wrong. Try again? 😅',
-            messages: prev.messages.filter((m) => m.id !== assistantMessage.id),
-          }))
-        }
+      } catch (error) {
+        console.error('Google AI error:', error)
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: locale === 'pt'
+            ? 'Ops! Algo deu errado. Tenta de novo?'
+            : locale === 'es'
+            ? 'Algo salio mal. Intentas de nuevo?'
+            : 'Oops! Something went wrong. Try again?',
+          messages: prev.messages.filter((m) => m.id !== assistantMessage.id),
+        }))
       }
     },
-    [state.isLoading, sendWithGoogle, sendWithNvidia, locale]
+    [state.isLoading, sendWithGoogle, locale]
   )
 
   const clearMessages = useCallback(() => {
@@ -156,7 +122,6 @@ export function useGeminiChat() {
       error: null,
     })
     historyRef.current = []
-    nvidiaHistoryRef.current = []
   }, [])
 
   return {
