@@ -3,7 +3,7 @@ import type { Translations } from './types'
 export const pt: Translations = {
   nav: {
     home: 'Início',
-    kiteSchool: 'Kite School',
+    kiteSchool: 'Escola de Kite',
     tours: 'Passeios',
     contact: 'Contato',
     bookClass: 'Agendar Aula',
@@ -21,7 +21,7 @@ export const pt: Translations = {
     imageAlt: 'Kitesurf em Touros',
   },
   kite: {
-    badge: 'Kite School',
+    badge: 'Escola de Kite',
     title: 'Aprenda a voar sobre as águas',
     description: 'Metodologia comprovada com instrutores certificados. Do zero ao velejo independente em um curso completo e seguro.',
     step1Title: 'Montagem e Segurança',
