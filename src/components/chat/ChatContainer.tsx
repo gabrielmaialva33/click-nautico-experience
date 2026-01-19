@@ -16,6 +16,9 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
 
   return (
     <m.div
+      role="dialog"
+      aria-label={t.chat.title || 'Chat com Click AI'}
+      aria-modal="true"
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -52,15 +55,17 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
               onClick={clearMessages}
               className="rounded-full p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
               title={t.chat.clearChat}
+              aria-label={t.chat.clearChat || 'Limpar conversa'}
             >
-              <Trash2 className="h-4 w-4" strokeWidth={2} />
+              <Trash2 className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
             </button>
           )}
           <button
             onClick={onClose}
             className="rounded-full p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+            aria-label={t.chat.close || 'Fechar chat'}
           >
-            <X className="h-5 w-5" strokeWidth={2} />
+            <X className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
       </div>

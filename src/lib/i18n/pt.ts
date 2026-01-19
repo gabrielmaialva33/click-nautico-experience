@@ -102,6 +102,12 @@ export const pt: Translations = {
     clearChat: 'Limpar conversa',
     error: 'Ops! Algo deu errado. Tenta de novo? 😅',
     tooltip: 'Planeje sua viagem com IA!',
+    // Acessibilidade
+    title: 'Chat com Click AI',
+    close: 'Fechar chat',
+    send: 'Enviar mensagem',
+    sending: 'Enviando...',
+    inputLabel: 'Digite sua mensagem',
     quickReplies: {
       kite: 'Aulas de Kite',
       prices: 'Preços',

@@ -102,6 +102,12 @@ export const en: Translations = {
     clearChat: 'Clear chat',
     error: 'Oops! Something went wrong. Try again? 😅',
     tooltip: 'Plan your trip with AI!',
+    // Accessibility
+    title: 'Chat with Click AI',
+    close: 'Close chat',
+    send: 'Send message',
+    sending: 'Sending...',
+    inputLabel: 'Type your message',
     quickReplies: {
       kite: 'Kite Lessons',
       prices: 'Prices',

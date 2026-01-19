@@ -49,8 +49,13 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             placeholder={t.chat.placeholder}
             disabled={isLoading}
             rows={1}
+            aria-label={t.chat.inputLabel || 'Digite sua mensagem'}
+            aria-describedby="chat-input-hint"
             className="w-full resize-none bg-transparent px-4 py-3 text-sm text-white placeholder-gray-500 outline-none disabled:opacity-50 max-h-32"
           />
+          <span id="chat-input-hint" className="sr-only">
+            Pressione Enter para enviar, Shift+Enter para nova linha
+          </span>
         </div>
 
         <m.button
@@ -58,6 +63,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           whileTap={{ scale: 0.95 }}
           onClick={handleSubmit}
           disabled={!input.trim() || isLoading}
+          aria-label={isLoading ? t.chat.sending || 'Enviando...' : t.chat.send || 'Enviar mensagem'}
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-ocean-500 hover:bg-ocean-400 text-white shadow-lg transition-all disabled:opacity-0 disabled:scale-50 mb-1 mr-1"
         >
           {isLoading ? (
@@ -65,6 +71,8 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
               className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
+              role="status"
+              aria-label="Carregando"
             />
           ) : (
             <svg
@@ -72,6 +80,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"

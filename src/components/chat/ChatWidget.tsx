@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X } from 'lucide-react'
 import { ChatContainer } from './ChatContainer'
@@ -7,6 +7,27 @@ import { useI18n } from '@/lib/i18n'
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const { t } = useI18n()
+
+  // Bloqueia scroll do body quando chat está aberto (mobile)
+  useEffect(() => {
+    if (isOpen) {
+      // Salva posição atual do scroll
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflow = 'hidden'
+
+      return () => {
+        // Restaura scroll
+        document.body.style.position = ''
+        document.body.style.top = ''
+        document.body.style.width = ''
+        document.body.style.overflow = ''
+        window.scrollTo(0, scrollY)
+      }
+    }
+  }, [isOpen])
 
   return (
     <>

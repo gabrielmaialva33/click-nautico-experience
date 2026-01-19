@@ -102,6 +102,12 @@ export interface Translations {
     clearChat: string
     error: string
     tooltip: string
+    // Accessibility
+    title: string
+    close: string
+    send: string
+    sending: string
+    inputLabel: string
     quickReplies: {
       kite: string
       prices: string
