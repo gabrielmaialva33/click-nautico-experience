@@ -11,15 +11,24 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900"
     >
       {/* Background Video/Image */}
+      {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={`${import.meta.env.BASE_URL}hero-vila-gale.webp`}
-          alt={t.hero.imageAlt}
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Overlay gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sand-900/70 via-sand-900/40 to-sand-900/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ocean-900/30 to-transparent" />
+        <motion.div
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+          className="relative w-full h-full"
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}hero-vila-gale.webp`}
+            alt={t.hero.imageAlt}
+            className="w-full h-full object-cover object-center brightness-110 contrast-110 saturate-[1.1]"
+          />
+        </motion.div>
+
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-sand-900/80 via-sand-900/20 to-sand-900/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ocean-900/40 via-transparent to-ocean-900/40" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/30 opacity-60" />
       </div>
 
       {/* Animated particles/waves effect */}
