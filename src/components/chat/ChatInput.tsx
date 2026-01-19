@@ -78,7 +78,7 @@ export function ChatInput({ onSend, isLoading, provider = 'google' }: ChatInputP
         </motion.button>
       </div>
       <p className="mt-2 text-center text-[10px] text-white/30">
-        Powered by {provider === 'google' ? 'Gemini' : 'NVIDIA NIM'} • Click Náutico 🏄‍♂️
+        Powered by {provider === 'google' ? 'Gemini' : 'NVIDIA NIM'} • Click Náutico
       </p>
     </div>
   )

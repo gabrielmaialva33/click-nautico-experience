@@ -69,7 +69,6 @@ export function ChatWidget() {
             animate={{ opacity: 1, x: 0 }}
             className="absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-xl group-hover:block"
           >
-            <span className="mr-2">✨</span>
             {t.chat.tooltip}
           </motion.span>
         )}

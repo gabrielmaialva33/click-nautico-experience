@@ -23,9 +23,8 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         }`}
       >
         {!isUser && (
-          <div className="mb-1 flex items-center gap-2">
+          <div className="mb-1">
             <span className="text-xs font-medium text-cyan-400">Click AI</span>
-            <span className="text-lg">🏄‍♂️</span>
           </div>
         )}
         <p className="whitespace-pre-wrap text-sm leading-relaxed">
