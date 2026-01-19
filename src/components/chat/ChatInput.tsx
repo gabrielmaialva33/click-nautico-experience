@@ -8,7 +8,7 @@ interface ChatInputProps {
   provider?: 'google' | 'nvidia'
 }
 
-export function ChatInput({ onSend, isLoading, provider = 'google' }: ChatInputProps) {
+export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   const { t } = useI18n()
   const [input, setInput] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -16,7 +16,7 @@ export function ChatInput({ onSend, isLoading, provider = 'google' }: ChatInputP
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
-      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 120)}px`
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 100)}px`
     }
   }, [input])
 
@@ -35,24 +35,30 @@ export function ChatInput({ onSend, isLoading, provider = 'google' }: ChatInputP
   }
 
   return (
-    <div className="border-t border-white/10 bg-black/20 p-3 pb-6 md:pb-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
-      <div className="flex items-end gap-2">
-        <textarea
-          ref={textareaRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={t.chat.placeholder}
-          disabled={isLoading}
-          rows={1}
-          className="flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-white/40 outline-none transition-colors focus:border-cyan-500/50 focus:bg-white/10 disabled:opacity-50"
-        />
+    <div
+      className="border-t border-slate-800 bg-slate-900/80 px-4 py-3 backdrop-blur-lg"
+      style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+    >
+      <div className="flex items-end gap-3">
+        <div className="relative flex-1">
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={t.chat.placeholder}
+            disabled={isLoading}
+            rows={1}
+            className="w-full resize-none rounded-2xl border border-slate-700 bg-slate-800/50 px-4 py-3 pr-12 text-sm text-white placeholder-slate-500 outline-none transition-all focus:border-teal-500/50 focus:bg-slate-800 focus:ring-2 focus:ring-teal-500/20 disabled:opacity-50"
+          />
+        </div>
+
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleSubmit}
           disabled={!input.trim() || isLoading}
-          className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-700 text-white transition-opacity disabled:opacity-40"
+          className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-500/30 transition-all disabled:opacity-40 disabled:shadow-none"
         >
           {isLoading ? (
             <motion.div
@@ -77,8 +83,10 @@ export function ChatInput({ onSend, isLoading, provider = 'google' }: ChatInputP
           )}
         </motion.button>
       </div>
-      <p className="mt-2 text-center text-[10px] text-white/30">
-        Powered by {provider === 'google' ? 'Gemini' : 'NVIDIA NIM'} • Click Náutico
+
+      {/* Powered by - Mais sutil */}
+      <p className="mt-2 text-center text-[10px] text-slate-600">
+        Click Náutico AI
       </p>
     </div>
   )

@@ -15,68 +15,70 @@ export function ChatWidget() {
       </AnimatePresence>
 
       {/* Toggle Button - hidden when chat is open on mobile */}
-      <div className={`fixed bottom-20 right-4 z-50 flex flex-col items-end gap-4 md:bottom-24 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
-
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Chat AI"
-        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-700 shadow-lg shadow-cyan-500/30 transition-shadow hover:shadow-xl hover:shadow-cyan-500/40 md:h-14 md:w-14"
-      >
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.svg
-              key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="h-6 w-6 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </motion.svg>
-          ) : (
-            <motion.div
-              key="chat"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center justify-center"
-            >
-              <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Pulse animation when closed */}
+      <div className={`fixed bottom-20 right-4 z-50 flex flex-col items-end gap-4 md:bottom-6 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
+        {/* Tooltip on hover */}
         {!isOpen && (
-          <>
-            <span className="absolute inset-0 animate-ping rounded-full bg-cyan-500 opacity-25" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-black shadow-sm">
-              AI
-            </span>
-          </>
-        )}
-
-        {/* Tooltip */}
-        {!isOpen && (
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-xl group-hover:block"
-          >
-            {t.chat.tooltip}
-          </motion.span>
+            className="hidden md:group-hover:block"
+          />
         )}
-      </motion.button>
+
+        {/* Toggle Button */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Chat AI"
+          className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 shadow-lg shadow-teal-500/30 transition-all hover:shadow-xl hover:shadow-teal-500/40"
+        >
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.svg
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </motion.svg>
+            ) : (
+              <motion.span
+                key="chat"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="text-2xl"
+              >
+                🏄‍♂️
+              </motion.span>
+            )}
+          </AnimatePresence>
+
+          {/* Pulse animation when closed */}
+          {!isOpen && (
+            <>
+              <span className="absolute inset-0 animate-ping rounded-full bg-teal-500 opacity-20" />
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-white shadow-sm">
+                AI
+              </span>
+            </>
+          )}
+
+          {/* Tooltip */}
+          {!isOpen && (
+            <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-lg bg-slate-800 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xl transition-opacity group-hover:opacity-100">
+              {t.chat.tooltip}
+            </span>
+          )}
+        </motion.button>
       </div>
     </>
   )

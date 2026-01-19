@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import type { Message } from './types'
-import { AvatarAI } from './AvatarAI'
 
 interface MessageBubbleProps {
   message: Message
@@ -14,53 +13,58 @@ export function MessageBubble({ message, isLatest = false, isLoading = false }: 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className={`flex gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+      className={`flex items-end gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
     >
       {/* Avatar - only for assistant */}
       {!isUser && (
-        <AvatarAI size="sm" isThinking={showThinking} className="mt-1" />
+        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-cyan-400 text-sm shadow-md">
+          🏄‍♂️
+        </div>
       )}
 
       <div
-        className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+        className={`max-w-[80%] px-4 py-3 ${
           isUser
-            ? 'rounded-br-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white'
-            : 'rounded-bl-md bg-white/10 text-white backdrop-blur-sm'
+            ? 'rounded-2xl rounded-br-sm bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md shadow-blue-500/20'
+            : 'rounded-2xl rounded-bl-sm bg-slate-800 text-slate-100 shadow-md'
         }`}
       >
+
         <p className="whitespace-pre-wrap text-sm leading-relaxed">
           {message.content || (showThinking && (
             <span className="flex items-center gap-1">
-              <motion.span
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              >
-                ●
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
-              >
-                ●
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: 0.4 }}
-              >
-                ●
-              </motion.span>
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  className="text-teal-400"
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                >
+                  ●
+                </motion.span>
+              ))}
             </span>
           ))}
         </p>
-        <span className="mt-1 block text-right text-[10px] opacity-50">
-          {message.timestamp.toLocaleTimeString('pt-BR', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
-        </span>
+
+        {/* Timestamp */}
+        <div className={`mt-1 flex items-center justify-end gap-1 text-[10px] ${isUser ? 'text-white/60' : 'text-slate-500'}`}>
+          <span>
+            {message.timestamp.toLocaleTimeString('pt-BR', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </span>
+          {/* Check marks for user messages */}
+          {isUser && (
+            <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 2.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+            </svg>
+          )}
+        </div>
       </div>
     </motion.div>
   )
