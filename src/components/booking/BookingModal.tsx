@@ -102,22 +102,25 @@ export function BookingModal() {
   const renderStep2 = () => (
     <div className="space-y-4">
       <div>
-        <label className="mb-1 block text-sm text-gray-400">{t.booking.labels.package}</label>
+        <label htmlFor="package" className="mb-1 block text-sm text-gray-300">{t.booking.labels.package}</label>
         <input
+          id="package"
           type="text"
           value={formData.package}
           onChange={(e) => setFormData({ ...formData, package: e.target.value })}
           placeholder={t.booking.placeholders.package}
-          className="w-full rounded-lg bg-white/10 px-4 py-2 text-white outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white placeholder:!text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm text-gray-400">{t.booking.labels.date}</label>
+        <label htmlFor="date" className="mb-1 block text-sm text-gray-300">{t.booking.labels.date}</label>
         <input
+          id="date"
           type="date"
+          style={{ colorScheme: 'dark' }}
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-          className="w-full rounded-lg bg-white/10 px-4 py-2 text-white outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
       <div className="flex justify-between pt-4">
@@ -138,22 +141,24 @@ export function BookingModal() {
   const renderStep3 = () => (
     <div className="space-y-4">
       <div>
-        <label className="mb-1 block text-sm text-gray-400">{t.booking.labels.name}</label>
+        <label htmlFor="name" className="mb-1 block text-sm text-gray-300">{t.booking.labels.name}</label>
         <input
+          id="name"
           type="text"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t.booking.placeholders.name}
-          className="w-full rounded-lg bg-white/10 px-4 py-2 text-white outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white placeholder:!text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm text-gray-400">{t.booking.labels.notes}</label>
+        <label htmlFor="notes" className="mb-1 block text-sm text-gray-300">{t.booking.labels.notes}</label>
         <textarea
+          id="notes"
           value={formData.notes}
           onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
           placeholder={t.booking.placeholders.notes}
-          className="w-full rounded-lg bg-white/10 px-4 py-2 text-white outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white placeholder:!text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
           rows={3}
         />
       </div>
@@ -178,6 +183,9 @@ export function BookingModal() {
       onClick={handleBackdropClick}
     >
       <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -185,10 +193,10 @@ export function BookingModal() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-6 py-4">
-          <h3 className="text-lg font-bold text-white">
+          <h3 id="modal-title" className="text-lg font-bold text-white">
             {step === 1 ? t.booking.step1 : step === 2 ? t.booking.step2 : t.booking.step3}
           </h3>
-          <button onClick={closeBooking} className="text-white/50 hover:text-white">✕</button>
+          <button onClick={closeBooking} className="text-white/50 hover:text-white" aria-label="Close modal">✕</button>
         </div>
 
         <div className="p-6">

@@ -115,10 +115,10 @@ export function Footer() {
       <div className="border-t border-sand-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sand-500 text-sm">
+            <p className="text-sand-400 text-sm">
               {t.footer.copyright}
             </p>
-            <p className="text-sand-600 text-xs">
+            <p className="text-sand-400 text-xs">
               {t.footer.madeWith}
             </p>
           </div>

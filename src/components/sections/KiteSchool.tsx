@@ -244,7 +244,12 @@ export function KiteSchool() {
           </h3>
 
           <div className="bg-white rounded-2xl shadow-sm border border-sand-100 overflow-hidden">
-            <div className="overflow-x-auto">
+            <div
+              className="overflow-x-auto"
+              tabIndex={0}
+              role="region"
+              aria-label="Opções de pacotes"
+            >
               <table className="w-full text-left">
                 <thead className="bg-sand-50 text-sand-600 uppercase text-xs tracking-wider">
                   <tr>
