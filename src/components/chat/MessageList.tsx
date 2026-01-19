@@ -85,7 +85,7 @@ export function MessageList({ messages, isLoading, onQuickReply }: MessageListPr
             <button
               key={reply.text}
               onClick={() => onQuickReply?.(reply.text)}
-              className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-medium text-ocean-100 transition-all hover:border-ocean-400/50 hover:bg-ocean-500/10 hover:text-white hover:shadow-lg hover:shadow-ocean-500/20 active:scale-95"
+              className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-ocean-100 transition-all hover:border-ocean-400/50 hover:bg-ocean-500/10 hover:text-white hover:shadow-lg hover:shadow-ocean-500/20 active:scale-95"
             >
               <reply.icon className="h-3.5 w-3.5 text-ocean-300 group-hover:text-ocean-200 transition-colors" />
               <span>{reply.text}</span>
