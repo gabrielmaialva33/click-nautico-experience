@@ -174,7 +174,7 @@ export function KiteSchool() {
                 )}
 
                 <div className="pt-4 border-t border-white/10 flex items-end justify-between">
-                  <div>
+                  <div className="select-none">
                     <span className="text-xs text-gray-500 uppercase">
                       {t.kite.value}
                     </span>
@@ -232,7 +232,7 @@ export function KiteSchool() {
                       {activity.subtitleKey ? tr(activity.subtitleKey) : activity.subtitle}
                     </p>
                   </div>
-                  <div className="text-center sm:text-right">
+                  <div className="text-center sm:text-right select-none">
                     <span className="text-xs text-sand-400">{t.kite.perPerson}</span>
                     <div className="text-2xl font-bold text-ocean-400">
                       {formatPrice(activity.price)}
@@ -261,7 +261,7 @@ export function KiteSchool() {
               role="region"
               aria-label="Opções de pacotes"
             >
-              <table className="w-full text-left">
+              <table className="w-full text-left select-none">
                 <thead className="bg-white/5 text-gray-400 uppercase text-xs tracking-wider">
                   <tr>
                     <th className="px-6 py-4 font-semibold">{t.kite.item}</th>
