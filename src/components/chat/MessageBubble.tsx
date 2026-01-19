@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import { Check } from 'lucide-react'
+import { AvatarAI } from './AvatarAI'
 import type { Message } from './types'
 
 interface MessageBubbleProps {
@@ -18,11 +20,9 @@ export function MessageBubble({ message, isLatest = false, isLoading = false }: 
       transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
       className={`flex items-end gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
     >
-      {/* Avatar - only for assistant */}
+      {/* Avatar Animado - only for assistant */}
       {!isUser && (
-        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-cyan-400 text-sm shadow-md">
-          🏄‍♂️
-        </div>
+        <AvatarAI size="sm" isThinking={showThinking} />
       )}
 
       <div
@@ -60,9 +60,7 @@ export function MessageBubble({ message, isLatest = false, isLoading = false }: 
           </span>
           {/* Check marks for user messages */}
           {isUser && (
-            <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 2.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
-            </svg>
+            <Check className="h-3 w-3" />
           )}
         </div>
       </div>

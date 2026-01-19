@@ -41,8 +41,8 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
 
   const sizes = {
     sm: 'w-8 h-8',
-    md: 'w-10 h-10',
-    lg: 'w-14 h-14',
+    md: 'w-12 h-12',
+    lg: 'w-20 h-20',
   }
 
   // IDs únicos para evitar colisão
@@ -111,35 +111,23 @@ export function AvatarAI({ size = 'md', isThinking = false, className = '' }: Av
         <g>
           {/* Left eye */}
           <ellipse cx="38" cy="50" rx="6" ry={isBlinking && !prefersReducedMotion ? 1 : 5} fill="white" />
-          {prefersReducedMotion ? (
-            <circle cx="38" cy="50" r={3} fill="#2d1810" />
-          ) : (
-            <motion.circle
-              cx="38"
-              cy="50"
-              r={isBlinking ? 0 : 3}
-              fill="#2d1810"
-              animate={isThinking ? { cx: [38, 40, 36, 38] } : {}}
-              transition={{ duration: 2, repeat: isThinking ? Infinity : 0 }}
-            />
-          )}
-          <circle cx="36" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
+          <motion.g
+            animate={isThinking && !prefersReducedMotion ? { x: [0, 2, -2, 0] } : { x: 0 }}
+            transition={{ duration: 2, repeat: isThinking ? Infinity : 0, ease: "easeInOut" }}
+          >
+            <circle cx="38" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#2d1810" />
+            <circle cx="36" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
+          </motion.g>
 
           {/* Right eye */}
           <ellipse cx="62" cy="50" rx="6" ry={isBlinking && !prefersReducedMotion ? 1 : 5} fill="white" />
-          {prefersReducedMotion ? (
-            <circle cx="62" cy="50" r={3} fill="#2d1810" />
-          ) : (
-            <motion.circle
-              cx="62"
-              cy="50"
-              r={isBlinking ? 0 : 3}
-              fill="#2d1810"
-              animate={isThinking ? { cx: [62, 64, 60, 62] } : {}}
-              transition={{ duration: 2, repeat: isThinking ? Infinity : 0 }}
-            />
-          )}
-          <circle cx="60" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
+          <motion.g
+            animate={isThinking && !prefersReducedMotion ? { x: [0, 2, -2, 0] } : { x: 0 }}
+            transition={{ duration: 2, repeat: isThinking ? Infinity : 0, ease: "easeInOut" }}
+          >
+            <circle cx="62" cy="50" r={isBlinking && !prefersReducedMotion ? 0 : 3} fill="#2d1810" />
+            <circle cx="60" cy="48" r="1" fill="white" opacity={isBlinking && !prefersReducedMotion ? 0 : 1} />
+          </motion.g>
         </g>
 
         {/* Nose */}

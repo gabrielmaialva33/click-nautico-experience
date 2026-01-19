@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
+import { Trash2, X } from 'lucide-react'
 import { MessageList } from './MessageList'
 import { ChatInput } from './ChatInput'
 import { useGeminiChat } from './useGeminiChat'
 import { useI18n } from '@/lib/i18n'
+import { AvatarAI } from './AvatarAI'
 
 interface ChatContainerProps {
   onClose: () => void
@@ -30,13 +32,8 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Avatar simples e clean */}
-          <div className="relative">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-xl backdrop-blur-sm">
-              🏄‍♂️
-            </div>
-            <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-teal-500 bg-emerald-400" />
-          </div>
+          {/* Avatar Animado */}
+          <AvatarAI size="md" isThinking={isLoading} />
           <div>
             <h3 className="font-semibold text-white">Click AI</h3>
             <p className="text-xs text-white/80">{t.chat.online}</p>
@@ -50,18 +47,14 @@ export function ChatContainer({ onClose }: ChatContainerProps) {
               className="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
               title={t.chat.clearChat}
             >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
+              <Trash2 className="h-5 w-5" strokeWidth={1.5} />
             </button>
           )}
           <button
             onClick={onClose}
             className="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
           >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="h-5 w-5" strokeWidth={2} />
           </button>
         </div>
       </div>

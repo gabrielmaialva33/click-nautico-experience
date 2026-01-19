@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { MessageCircle, X } from 'lucide-react'
 import { ChatContainer } from './ChatContainer'
 import { useI18n } from '@/lib/i18n'
 
@@ -35,30 +36,25 @@ export function ChatWidget() {
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
-              <motion.svg
+              <motion.div
                 key="close"
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="h-6 w-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </motion.svg>
+                <X className="h-6 w-6 text-white" strokeWidth={2.5} />
+              </motion.div>
             ) : (
-              <motion.span
+              <motion.div
                 key="chat"
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.5, opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="text-2xl"
               >
-                🏄‍♂️
-              </motion.span>
+                <MessageCircle className="h-6 w-6 text-white" strokeWidth={2} />
+              </motion.div>
             )}
           </AnimatePresence>
 
