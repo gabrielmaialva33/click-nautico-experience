@@ -1,8 +1,5 @@
 <h1 align="center">
-  <img src=".github/assets/banner.png" height="300" alt="Click Náutico">
-  <br/>
-  <br/>
-  Click Náutico Experience
+  <img src="https://raw.githubusercontent.com/gabrielmaialva33/click-nautico-experience/main/.github/assets/banner.svg" width="100%" alt="Click Náutico">
 </h1>
 
 <p align="center">
