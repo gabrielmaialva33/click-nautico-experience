@@ -21,6 +21,9 @@ test.describe('Chat Widget', () => {
     // Close chat by clicking the button again
     await chatButton.click();
 
+    // Wait for animation to complete
+    await page.waitForTimeout(500);
+
     // Should be closed
     await expect(chatInput).not.toBeVisible();
   });
