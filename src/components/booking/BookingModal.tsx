@@ -109,7 +109,8 @@ export function BookingModal() {
           value={formData.package}
           onChange={(e) => setFormData({ ...formData, package: e.target.value })}
           placeholder={t.booking.placeholders.package}
-          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white placeholder:!text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
+          style={{ backgroundColor: '#000000', color: '#ffffff' }}
+          className="w-full rounded-lg px-4 py-2 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
       <div>
@@ -120,7 +121,8 @@ export function BookingModal() {
           style={{ colorScheme: 'dark' }}
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white outline-none focus:ring-2 focus:ring-cyan-500"
+          style={{ colorScheme: 'dark', backgroundColor: '#000000', color: '#ffffff' }}
+          className="w-full rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
       <div className="flex justify-between pt-4">
@@ -148,7 +150,8 @@ export function BookingModal() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t.booking.placeholders.name}
-          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white placeholder:!text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
+          style={{ backgroundColor: '#000000', color: '#ffffff' }}
+          className="w-full rounded-lg px-4 py-2 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
       <div>
@@ -158,7 +161,8 @@ export function BookingModal() {
           value={formData.notes}
           onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
           placeholder={t.booking.placeholders.notes}
-          className="w-full rounded-lg bg-gray-900 px-4 py-2 !text-white placeholder:!text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
+          style={{ backgroundColor: '#000000', color: '#ffffff' }}
+          className="w-full rounded-lg px-4 py-2 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-cyan-500"
           rows={3}
         />
       </div>
