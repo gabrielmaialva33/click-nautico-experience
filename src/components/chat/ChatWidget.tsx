@@ -16,7 +16,7 @@ export function ChatWidget() {
       </AnimatePresence>
 
       {/* Toggle Button - hidden when chat is open on mobile */}
-      <div className={`fixed bottom-20 right-4 z-50 flex flex-col items-end gap-4 md:bottom-6 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
+      <div className={`fixed bottom-6 right-4 z-50 flex flex-col items-end gap-4 md:right-6 ${isOpen ? 'hidden md:flex' : ''}`}>
         {/* Tooltip on hover */}
         {!isOpen && (
           <m.div
