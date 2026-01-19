@@ -53,7 +53,7 @@ export function ChatWidget() {
                 exit={{ scale: 0.5, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <MessageCircle className="h-6 w-6 text-white" strokeWidth={2} />
+                <MessageCircle className="h-5 w-5 md:h-6 md:w-6 text-white" strokeWidth={2} />
               </m.div>
             )}
           </AnimatePresence>
